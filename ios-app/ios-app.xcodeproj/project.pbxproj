@@ -33,12 +33,7 @@
 		E00F490F225F7D6000EAD0C0 /* LogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = E00F4902225F7D6000EAD0C0 /* LogFormatter.m */; };
 		E00F4914225F7D9C00EAD0C0 /* Speed.h in Headers */ = {isa = PBXBuildFile; fileRef = E00F4911225F7D9B00EAD0C0 /* Speed.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E00F4915225F7D9C00EAD0C0 /* Speed.m in Sources */ = {isa = PBXBuildFile; fileRef = E00F4912225F7D9B00EAD0C0 /* Speed.m */; };
-		E00F4918225F7DC900EAD0C0 /* ias.mobile.js in Resources */ = {isa = PBXBuildFile; fileRef = E00F4917225F7DC900EAD0C0 /* ias.mobile.js */; };
-		E00F4AE7225F801E00EAD0C0 /* NativeScript.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E00F4ADE225F801400EAD0C0 /* NativeScript.framework */; };
-		E00F4AE8225F802900EAD0C0 /* TNSWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E00F4ADF225F801400EAD0C0 /* TNSWidgets.framework */; };
 		E00F4AE9225F804800EAD0C0 /* Common.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E00F48D9225F7D2600EAD0C0 /* Common.framework */; };
-		E00F4AEC225F80D600EAD0C0 /* NativeScript.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E00F4ADE225F801400EAD0C0 /* NativeScript.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E00F4AED225F80D600EAD0C0 /* TNSWidgets.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E00F4ADF225F801400EAD0C0 /* TNSWidgets.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E00F4AF32264B7C700EAD0C0 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00F4AF22264B7C700EAD0C0 /* Config.swift */; };
 		E00F4AFF2266234200EAD0C0 /* IASProgramDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00F4AFE2266234200EAD0C0 /* IASProgramDelegate.swift */; };
 		E00F4B012266235700EAD0C0 /* QoSProgramDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00F4B002266235700EAD0C0 /* QoSProgramDelegate.swift */; };
@@ -155,8 +150,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E00F4AEC225F80D600EAD0C0 /* NativeScript.framework in Embed Frameworks */,
-				E00F4AED225F80D600EAD0C0 /* TNSWidgets.framework in Embed Frameworks */,
 				E00F48F3225F7D3B00EAD0C0 /* Speed.framework in Embed Frameworks */,
 				E00F48E1225F7D2600EAD0C0 /* Common.framework in Embed Frameworks */,
 			);
@@ -198,11 +191,6 @@
 		E00F4911225F7D9B00EAD0C0 /* Speed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Speed.h; path = "../../ias-ios/Speed/Speed.h"; sourceTree = "<group>"; };
 		E00F4912225F7D9B00EAD0C0 /* Speed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Speed.m; path = "../../ias-ios/Speed/Speed.m"; sourceTree = "<group>"; };
 		E00F4913225F7D9B00EAD0C0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../../ias-ios/Speed/Info.plist"; sourceTree = "<group>"; };
-		E00F4917225F7DC900EAD0C0 /* ias.mobile.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = ias.mobile.js; path = ../../../ias/build/uglified/mobile/ias.mobile.js; sourceTree = "<group>"; };
-		E00F4ADE225F801400EAD0C0 /* NativeScript.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NativeScript.framework; sourceTree = "<group>"; };
-		E00F4ADF225F801400EAD0C0 /* TNSWidgets.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TNSWidgets.framework; sourceTree = "<group>"; };
-		E00F4AE1225F801400EAD0C0 /* NativeScript.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NativeScript.framework; sourceTree = "<group>"; };
-		E00F4AE2225F801400EAD0C0 /* TNSWidgets.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TNSWidgets.framework; sourceTree = "<group>"; };
 		E00F4AF22264B7C700EAD0C0 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		E00F4AFE2266234200EAD0C0 /* IASProgramDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IASProgramDelegate.swift; sourceTree = "<group>"; };
 		E00F4B002266235700EAD0C0 /* QoSProgramDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QoSProgramDelegate.swift; sourceTree = "<group>"; };
@@ -299,8 +287,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E00F4AE9225F804800EAD0C0 /* Common.framework in Frameworks */,
-				E00F4AE7225F801E00EAD0C0 /* NativeScript.framework in Frameworks */,
-				E00F4AE8225F802900EAD0C0 /* TNSWidgets.framework in Frameworks */,
 				028BCD1C5DB207312A53426F /* Pods_All_Speed.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,8 +336,6 @@
 		86A4812220B29B87F1E5A1BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E00F4ADD225F801400EAD0C0 /* dev */,
-				E00F4AE0225F801400EAD0C0 /* dist */,
 				B3142E3D228324ABA957A394 /* Pods_All_Common.framework */,
 				FAC9DAE7413ECAE8092FFC80 /* Pods_All_Speed.framework */,
 				4042E14D8B38AC9EAFAC182E /* Pods_All_BEREC_nntool.framework */,
@@ -398,26 +382,6 @@
 				E00F4912225F7D9B00EAD0C0 /* Speed.m */,
 			);
 			path = Speed;
-			sourceTree = "<group>";
-		};
-		E00F4ADD225F801400EAD0C0 /* dev */ = {
-			isa = PBXGroup;
-			children = (
-				E00F4ADE225F801400EAD0C0 /* NativeScript.framework */,
-				E00F4ADF225F801400EAD0C0 /* TNSWidgets.framework */,
-			);
-			name = dev;
-			path = "../ias-mobile/frameworks/ios/dev";
-			sourceTree = "<group>";
-		};
-		E00F4AE0225F801400EAD0C0 /* dist */ = {
-			isa = PBXGroup;
-			children = (
-				E00F4AE1225F801400EAD0C0 /* NativeScript.framework */,
-				E00F4AE2225F801400EAD0C0 /* TNSWidgets.framework */,
-			);
-			name = dist;
-			path = "../ias-mobile/frameworks/ios/dist";
 			sourceTree = "<group>";
 		};
 		E026A5752241271700BACDB5 = {
@@ -487,7 +451,6 @@
 			isa = PBXGroup;
 			children = (
 				E0C4527422CDF8A200FA4B44 /* Generated */,
-				E00F4917225F7DC900EAD0C0 /* ias.mobile.js */,
 				E026A5812241271700BACDB5 /* AppDelegate.swift */,
 				E00F4AF22264B7C700EAD0C0 /* Config.swift */,
 				E0C4526B22CB867600FA4B44 /* LogConfig.swift */,
@@ -754,9 +717,8 @@
 			buildConfigurationList = E00F48F4225F7D3B00EAD0C0 /* Build configuration list for PBXNativeTarget "Speed" */;
 			buildPhases = (
 				8D781F2C2D4E4D6921F0F90D /* [CP] Check Pods Manifest.lock */,
-				E00F4AEA225F807700EAD0C0 /* TNS Create Metadata */,
-				E00F48E6225F7D3A00EAD0C0 /* Headers */,
 				E00F48E7225F7D3A00EAD0C0 /* Sources */,
+				E00F48E6225F7D3A00EAD0C0 /* Headers */,
 				E00F48E8225F7D3A00EAD0C0 /* Frameworks */,
 				E00F48E9225F7D3A00EAD0C0 /* Resources */,
 			);
@@ -784,7 +746,6 @@
 				E029274F22D79156001FCAEC /* Add Build Info */,
 				4FCF19EEF58E6B3991550D89 /* [CP] Embed Pods Frameworks */,
 				E00F48E5225F7D2600EAD0C0 /* Embed Frameworks */,
-				E00F4AEB225F80B300EAD0C0 /* TNS Copy app */,
 				D34617014C54EB4871F4F499 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -913,7 +874,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E00F4918225F7DC900EAD0C0 /* ias.mobile.js in Resources */,
 				E059879E232BFA49004771C2 /* Localizable.strings in Resources */,
 				E044DE0E22D4CA7A00BB70CE /* HomeScreenDeviceInfoView.xib in Resources */,
 				E026A58E2241271900BACDB5 /* LaunchScreen.storyboard in Resources */,
@@ -1040,42 +1000,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-All-BEREC_nntool/Pods-All-BEREC_nntool-resources.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		E00F4AEA225F807700EAD0C0 /* TNS Create Metadata */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "TNS Create Metadata";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "cd \"$PROJECT_DIR/../ias-mobile/platforms/ios/internal/metadata-generator/bin\" && ./build-step-metadata-generator.py\n\n";
-		};
-		E00F4AEB225F80B300EAD0C0 /* TNS Copy app */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "TNS Copy app";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"/${SRCROOT}/../ias-mobile/copy_app_ios.sh\"\n";
 		};
 		E029274F22D79156001FCAEC /* Add Build Info */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1394,8 +1318,6 @@
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FMDB\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/PocketSocket\"",
-					"$(PROJECT_DIR)/../ias-mobile/frameworks/ios/dev",
 				);
 				INFOPLIST_FILE = "../ias-ios/Speed/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1419,13 +1341,7 @@
 					"-framework",
 					"\"Foundation\"",
 					"-framework",
-					"\"PocketSocket\"",
-					"-framework",
 					"\"Security\"",
-					"-sectcreate",
-					__DATA,
-					__TNSMetadata,
-					"\"$(CONFIGURATION_BUILD_DIR)/metadata-$(CURRENT_ARCH).bin\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zafaco.Speed;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1453,8 +1369,6 @@
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FMDB\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/PocketSocket\"",
-					"$(PROJECT_DIR)/../ias-mobile/frameworks/ios/dev",
 				);
 				INFOPLIST_FILE = "../ias-ios/Speed/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1478,13 +1392,7 @@
 					"-framework",
 					"\"Foundation\"",
 					"-framework",
-					"\"PocketSocket\"",
-					"-framework",
 					"\"Security\"",
-					"-sectcreate",
-					__DATA,
-					__TNSMetadata,
-					"\"$(CONFIGURATION_BUILD_DIR)/metadata-$(CURRENT_ARCH).bin\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zafaco.Speed;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1658,8 +1566,6 @@
 					"-framework",
 					"\"ObjcExceptionBridging\"",
 					"-framework",
-					"\"PocketSocket\"",
-					"-framework",
 					"\"QoSKit\"",
 					"-framework",
 					"\"Reachability\"",
@@ -1734,8 +1640,6 @@
 					"\"MeasurementAgentKit\"",
 					"-framework",
 					"\"ObjcExceptionBridging\"",
-					"-framework",
-					"\"PocketSocket\"",
 					"-framework",
 					"\"QoSKit\"",
 					"-framework",
