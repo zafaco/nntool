@@ -25,8 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 === Prerequisites
 
 Linux (any Version)
-
-- make or ninja
+- ninja
 - cmake
 - g++
 - libssl-dev

@@ -1,7 +1,7 @@
 /*!
     \file timer.cpp
     \author zafaco GmbH <info@zafaco.de>
-    \date Last update: 2020-07-01
+    \date Last update: 2020-11-03
 
     Copyright (C) 2016 - 2020 zafaco GmbH
 
@@ -62,8 +62,10 @@ CTimer::CTimer( int nInstances, CCallback *pCallback, unsigned long long nInitia
 //! \return 0
 int CTimer::run()
 {
+	CTool::getPid(pid);
+	
 	//Log Message
-	TRC_INFO( ("Starting Timer Thread with PID: " + CTool::toString(syscall(SYS_gettid))).c_str() );
+	TRC_INFO( ("Starting Timer Thread with PID: " + CTool::toString(pid)).c_str() );
 	
 	//++++++INIT++++++
 	unsigned long long time1 = 0;
@@ -113,13 +115,19 @@ int CTimer::run()
 		{
 			sync_counter = 0;
 			
-			//Check if all Threads available
-			for (AI = syncing_threads.begin(); AI!= syncing_threads.end(); ++AI)
+			//Check if all Threads are ready
+            pthread_mutex_lock(&mutex_syncing_threads);
+			if (syncing_threads.size() > 0)
 			{
-				//Check if we are synced
-				if( (*AI).second == 1 )
-					sync_counter++;
+				for (AI = syncing_threads.begin(); AI!= syncing_threads.end(); ++AI)
+				{
+					//TRC_DEBUG("syncing_threads: " + to_string((*AI).first) + " - " + to_string((*AI).second));
+					//Check if we are synced
+					if( (*AI).second == 1 )
+						sync_counter++;
+				}
 			}
+			pthread_mutex_unlock(&mutex_syncing_threads);
 
 			//If equal, we are synced
 			if( sync_counter == mInstances )
@@ -194,7 +202,7 @@ int CTimer::run()
 	//++++++END+++++++
 
 	//Log Message
-	TRC_INFO( ("Ending Timer Thread with PID: " + CTool::toString(syscall(SYS_gettid))).c_str() );
+	TRC_INFO( ("Ending Timer Thread with PID: " + CTool::toString(pid)).c_str() );
 
 	#ifdef __ANDROID__
 		AndroidConnector::detachCurrentThreadFromJavaVM();

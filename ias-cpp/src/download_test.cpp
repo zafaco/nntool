@@ -1,9 +1,9 @@
 /*!
     \file download_test.cpp
     \author zafaco GmbH <info@zafaco.de>
-    \date Last update: 2019-11-13
+    \date Last update: 2020-11-03
 
-    Copyright (C) 2016 - 2019 zafaco GmbH
+    Copyright (C) 2016 - 2020 zafaco GmbH
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3 
@@ -27,17 +27,23 @@
 
 
 
-bool DEBUG;
+bool _DEBUG_;
 bool OVERLOADED;
 struct conf_data conf;
 
 TEST_CASE("Download test")
 {
     ::OVERLOADED = false;
-    ::DEBUG =false;
+    ::_DEBUG_ =false;
     ::RUNNING= true;
     ::PLATFORM = "desktop";
-    ::CLIENT_OS = "linux";
+
+    #if defined(__APPLE__) && defined(TARGET_OS_MAC)
+        ::CLIENT_OS  = "macos";
+    #else
+        ::CLIENT_OS  = "linux";
+    #endif
+
     ::TCP_STARTUP	= 3000000;
     //CTrace& pTrace = CTrace::getInstance();
     CTrace::setLogFunction([] (std::string const & cat, std::string const  &s) { std::cout << "[" + CTool::get_timestamp_string() + "] " + cat + ": " + s + "\n"; });
@@ -55,7 +61,9 @@ TEST_CASE("Download test")
     std::unique_ptr<CConfigManager> pService;
     SECTION("Performs successfull download measurement against ias-server")
     {
+        pthread_mutex_lock(&mutex_syncing_threads);
         syncing_threads.clear();
+        pthread_mutex_unlock(&mutex_syncing_threads);
         conf.sProvider="testing";
         conf.sTestName="download";
         conf.nTestCase=3;

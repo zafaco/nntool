@@ -2,7 +2,7 @@
     \file android_connector.h
     \author zafaco GmbH <info@zafaco.de>
     \author alladin-IT GmbH <info@alladin.at>
-    \date Last update: 2020-05-12
+    \date Last update: 2020-11-03
 
     Copyright (C) 2016 - 2020 zafaco GmbH
     Copyright (C) 2019 alladin-IT GmbH
@@ -42,7 +42,7 @@ extern void shutdown();
 
 extern void show_usage(char* argv0);
 
-extern bool DEBUG;
+extern bool _DEBUG_;
 extern bool RUNNING;
 
 extern const char* PLATFORM;
@@ -74,8 +74,8 @@ extern struct measurement measurements;
 extern std::vector<char> randomDataValues;
 
 extern pthread_mutex_t mutex1;
-
 extern std::map<int,int> syncing_threads;
+extern pthread_mutex_t mutex_syncing_threads;
 
 extern class CConfigManager* pConfig;
 extern class CConfigManager* pXml;

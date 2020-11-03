@@ -1,7 +1,7 @@
 /*!
     \file iasclient.cpp
     \author zafaco GmbH <info@zafaco.de>
-    \date Last update: 2020-08-06
+    \date Last update: 2020-11-03
 
     Copyright (C) 2016 - 2020 zafaco GmbH
 
@@ -28,7 +28,7 @@
 
 /*--------------Global Variables--------------*/
 
-bool DEBUG;
+bool _DEBUG_;
 bool RUNNING;
 bool UNREACHABLE;
 bool FORBIDDEN;
@@ -63,9 +63,10 @@ struct measurement measurements;
 
 vector<char> randomDataValues;
 
-pthread_mutex_t mutex1;
+pthread_mutex_t mutex1 = PTHREAD_MUTEX_INITIALIZER;
 
 map<int,int> syncing_threads;
+pthread_mutex_t mutex_syncing_threads = PTHREAD_MUTEX_INITIALIZER;
 
 std::unique_ptr<CConfigManager> pConfig;
 std::unique_ptr<CConfigManager> pXml;
@@ -89,127 +90,134 @@ static void signal_handler  	(int signal);
 
 /*--------------Beginning of Program--------------*/
 
-int main(int argc, char** argv)
-{
-	::DEBUG 			= false;
-	::RUNNING 			= true;
-
-	::RTT				= false;
-	::DOWNLOAD 			= false;
-	::UPLOAD 			= false;
-
-	long int opt;
-	int tls = 0;
-	string target_port = "80";
-	string auth_token;
-	string auth_timestamp;
-
-	while ( ( opt = getopt( argc, argv, "rdutp:nhva:m:" ) ) != -1 )
+#ifndef NNTOOL_IOS
+	int main(int argc, char** argv)
 	{
-		switch (opt)
+		::_DEBUG_ 			= false;
+		::RUNNING 			= true;
+
+		::RTT				= false;
+		::DOWNLOAD 			= false;
+		::UPLOAD 			= false;
+
+		long int opt;
+		int tls = 0;
+		string target_port = "80";
+		string auth_token;
+		string auth_timestamp;
+
+		while ( ( opt = getopt( argc, argv, "rdutp:nhva:m:" ) ) != -1 )
 		{
-			case 'r':
-				::RTT = true;
-				break;
-			case 'd':
-				::DOWNLOAD = true;
-				break;
-			case 'u':
-				::UPLOAD = true;
-				break;
-			case 't':
-				tls = 1;
-				break;
-			case 'p':
-				target_port = optarg;
-				if (optopt == 'p')
-				{
+			switch (opt)
+			{
+				case 'r':
+					::RTT = true;
+					break;
+				case 'd':
+					::DOWNLOAD = true;
+					break;
+				case 'u':
+					::UPLOAD = true;
+					break;
+				case 't':
+					tls = 1;
+					break;
+				case 'p':
+					if (optarg == NULL)
+					{
+		                show_usage(argv[0]);
+	                	return EXIT_SUCCESS;
+	                }
+					target_port = optarg;
+					break;
+				case 'n':
+					::_DEBUG_ = true;
+					break;
+				case 'h':
 	                show_usage(argv[0]);
                 	return EXIT_SUCCESS;
-				}
-				break;
-			case 'n':
-				::DEBUG = true;
-				break;
-			case 'h':
-                show_usage(argv[0]);
-                return EXIT_SUCCESS;
-			case 'v':
-				cout << "ias client" << endl;
-				cout << "Version: " << VERSION << endl;
-				return 0;
-			case 'a':
-				auth_token = optarg;
-				break;
-			case 'm':
-				auth_timestamp = optarg;
-				break;
-			case '?':
-			default:
-				printf("Error: Unknown Argument -%c\n", optopt);
-				show_usage(argv[0]);
-                return EXIT_FAILURE;
+				case 'v':
+					cout << "ias client" << endl;
+					cout << "Version: " << VERSION << endl;
+					return 0;
+				case 'a':
+					auth_token = optarg;
+					break;
+				case 'm':
+					auth_timestamp = optarg;
+					break;
+				case '?':
+				default:
+					printf("Error: Unknown Argument -%c\n", optopt);
+					show_usage(argv[0]);
+					return EXIT_FAILURE;
+			}
 		}
+
+		if (!::RTT && !::DOWNLOAD && !::UPLOAD)
+		{
+			printf("Error: At least one test case is required");
+			show_usage(argv[0]);
+	        return EXIT_FAILURE;
+		}
+
+		/*-------------------------set parameters for demo implementation start------------------------*/
+
+		Json::object jRttParameters;
+		Json::object jDownloadParameters;
+		Json::object jUploadParameters;
+
+		Json::object jMeasurementParameters;
+
+		//set requested test cases
+		jRttParameters["performMeasurement"] = ::RTT;
+		jDownloadParameters["performMeasurement"] = ::DOWNLOAD;
+		jUploadParameters["performMeasurement"] = ::UPLOAD;
+
+		//set default measurement parameters
+		jDownloadParameters["streams"] = "4";
+		jUploadParameters["streams"] = "4";
+		jMeasurementParameters["rtt"] = Json(jRttParameters);
+		jMeasurementParameters["download"] = Json(jDownloadParameters);
+		jMeasurementParameters["upload"] = Json(jUploadParameters);
+
+		#if defined(__APPLE__) && defined(TARGET_OS_MAC)
+			jMeasurementParameters["clientos"] = "macos";
+		#else
+			jMeasurementParameters["clientos"] = "linux";
+		#endif
+
+		jMeasurementParameters["platform"] = "desktop";
+		jMeasurementParameters["wsTLD"] = "net-neutrality.tools";
+		jMeasurementParameters["wsTargetPort"] = target_port;
+		jMeasurementParameters["wsTargetPortRtt"] = target_port;
+		jMeasurementParameters["wsWss"] = to_string(tls);
+		jMeasurementParameters["wsAuthToken"] = auth_token;
+		jMeasurementParameters["wsAuthTimestamp"] = auth_timestamp;
+
+		Json::array jTargets;
+		jTargets.push_back("peer-ias-de-01");
+		jMeasurementParameters["wsTargets"] = Json(jTargets);
+		jMeasurementParameters["wsTargetsRtt"] = Json(jTargets);
+
+		Json jMeasurementParametersJson = jMeasurementParameters;
+
+		/*-------------------------set parameters for demo implementation end------------------------*/
+
+	    #ifdef NNTOOL_CLIENT
+	    //register callback
+	    CTrace::setLogFunction([] (std::string const & cat, std::string const  &s) { std::cout << "[" + CTool::get_timestamp_string() + "] " + cat + ": " + s + "\n"; });
+	    #endif
+
+	    //Signal Handler
+	    signal(SIGFPE, signal_handler);
+	    signal(SIGABRT, signal_handler);
+	    signal(SIGSEGV, signal_handler);
+	    signal(SIGCHLD, signal_handler);
+
+		measurementStart(jMeasurementParametersJson.dump());
 	}
-
-	if (!::RTT && !::DOWNLOAD && !::UPLOAD)
-	{
-		printf("Error: At least one test case is required");
-		show_usage(argv[0]);
-        return EXIT_FAILURE;
-	}
-
-	/*-------------------------set parameters for demo implementation start------------------------*/
-
-	Json::object jRttParameters;
-	Json::object jDownloadParameters;
-	Json::object jUploadParameters;
-
-	Json::object jMeasurementParameters;
-
-	//set requested test cases
-	jRttParameters["performMeasurement"] = ::RTT;
-	jDownloadParameters["performMeasurement"] = ::DOWNLOAD;
-	jUploadParameters["performMeasurement"] = ::UPLOAD;
-
-	//set default measurement parameters
-	jDownloadParameters["streams"] = "4";
-	jUploadParameters["streams"] = "4";
-	jMeasurementParameters["rtt"] = Json(jRttParameters);
-	jMeasurementParameters["download"] = Json(jDownloadParameters);
-	jMeasurementParameters["upload"] = Json(jUploadParameters);
-
-	jMeasurementParameters["platform"] = "desktop";
-	jMeasurementParameters["clientos"] = "linux";
-	jMeasurementParameters["wsTLD"] = "net-neutrality.tools";
-	jMeasurementParameters["wsTargetPort"] = target_port;
-	jMeasurementParameters["wsTargetPortRtt"] = target_port;
-	jMeasurementParameters["wsWss"] = to_string(tls);
-	jMeasurementParameters["wsAuthToken"] = auth_token;
-	jMeasurementParameters["wsAuthTimestamp"] = auth_timestamp;
-
-	Json::array jTargets;
-	jTargets.push_back("peer-ias-de-01");
-	jMeasurementParameters["wsTargets"] = Json(jTargets);
-	jMeasurementParameters["wsTargetsRtt"] = Json(jTargets);
-
-	Json jMeasurementParametersJson = jMeasurementParameters;
-
-	/*-------------------------set parameters for demo implementation end------------------------*/
-
-    #ifdef NNTOOL_CLIENT
-    //register callback
-    CTrace::setLogFunction([] (std::string const & cat, std::string const  &s) { std::cout << "[" + CTool::get_timestamp_string() + "] " + cat + ": " + s + "\n"; });
-    #endif
-
-    //Signal Handler
-    signal(SIGFPE, signal_handler);
-    signal(SIGABRT, signal_handler);
-    signal(SIGSEGV, signal_handler);
-    signal(SIGCHLD, signal_handler);
-
-	measurementStart(jMeasurementParametersJson.dump());
-}
+#endif
 
 /**
  * @function measurementStart
@@ -244,14 +252,12 @@ void measurementStart(string measurementParameters)
     //parameter 		- example 1, example 2
     //-------------------------------------------------------------
     //platform 			- "cli", "mobile"
-    //clientos 			- "linux", "android"
+    //clientos 			- "linux", "android", "ios"
     //wsTargets 		- ["peer-ias-de-01"]
     //wsTLD 			- "net-neutrality.tools"
     //wsTargetPort		- "80"
 	//wsTargetPortRtt   - "80"
     //wsWss 			- "0"
-    //wsAuthToken 		- placeholderToken
-    //wsAuthTimestamp	- placeholderTimestamp
     //rtt 				- {"performMeasurement":true}
     //download 			- {"performMeasurement":true, "streams":"4"}
     //upload 			- {"performMeasurement":true, "streams":"4"}
@@ -269,7 +275,7 @@ void measurementStart(string measurementParameters)
 	Json::array jTargets = jMeasurementParameters["wsTargets"].array_items();
 	string wsTLD = jMeasurementParameters["wsTLD"].string_value();
 
-	#ifdef __ANDROID__
+	#if defined(__ANDROID__)
 		pXml->writeString(conf.sProvider, "DNS_HOSTNAME", jTargets[0].string_value());
 	#else
 		pXml->writeString(conf.sProvider, "DNS_HOSTNAME", jTargets[0].string_value() + "." + wsTLD);
@@ -280,7 +286,7 @@ void measurementStart(string measurementParameters)
 	pXml->writeString(conf.sProvider,"PING_PORT",jMeasurementParameters["wsTargetPortRtt"].string_value());
 
 	pXml->writeString(conf.sProvider,"TLS",jMeasurementParameters["wsWss"].string_value());
-	#ifdef __ANDROID__
+	#if defined(__ANDROID__)
 	    pXml->writeString(conf.sProvider, "CLIENT_IP", jMeasurementParameters["clientIp"].string_value());
 	#endif
 
@@ -298,7 +304,7 @@ void measurementStart(string measurementParameters)
 	::UPLOAD = jUpload["performMeasurement"].bool_value();
 	pXml->writeString(conf.sProvider,"UL_STREAMS", jUpload["streams"].string_value());
 
-    #ifdef __ANDROID__
+    #if defined(__ANDROID__)
         pXml->writeString(conf.sProvider,"PING_QUERY",jRtt["ping_query"].string_value());
     #else
 	    pXml->writeString(conf.sProvider,"PING_QUERY","10");
@@ -324,9 +330,11 @@ void measurementStart(string measurementParameters)
 		startTestCase(conf.nTestCase);
 	}
 
-	if (::hasError) {
-		throw ::recentException;
-	}
+	#if defined(__ANDROID__)
+		if (::hasError) {
+			throw ::recentException;
+		}
+	#endif
 
 	if (::DOWNLOAD)
 	{
@@ -337,9 +345,11 @@ void measurementStart(string measurementParameters)
 		startTestCase(conf.nTestCase);
 	}
 
-	if (::hasError) {
-		throw ::recentException;
-	}
+	#if defined(__ANDROID__)
+		if (::hasError) {
+			throw ::recentException;
+		}
+	#endif
 
 	if (::UPLOAD)
 	{
@@ -351,9 +361,11 @@ void measurementStart(string measurementParameters)
 		startTestCase(conf.nTestCase);
 	}
 
-	if (::hasError) {
-		throw ::recentException;
-	}
+	#if defined(__ANDROID__)
+		if (::hasError) {
+			throw ::recentException;
+		}
+	#endif
 
 	currentTestPhase = MeasurementPhase::END;
 
@@ -367,17 +379,16 @@ void measurementStart(string measurementParameters)
  */
 void measurementStop()
 {
-	//android api hookup
-	//call via ndk
-
 	shutdown();
 }
 
 void startTestCase(int nTestCase)
 {
+	pthread_mutex_lock(&mutex_syncing_threads);
 	syncing_threads.clear();
+	pthread_mutex_unlock(&mutex_syncing_threads);
 	pCallback->mTestCase = nTestCase;
-	#ifdef __ANDROID__
+	#if defined(__ANDROID__) || defined(NNTOOL_IOS)
 	    //set off measurement start callback
 	    pCallback->callbackToPlatform("started", "", 0, "");
 	#endif
@@ -393,7 +404,7 @@ void shutdown()
 
 	TRC_INFO("Status: ias-client stopped");
 
-    #ifndef __ANDROID__
+	#if !defined(__ANDROID__) && !defined(NNTOOL_IOS)
         exit(EXIT_SUCCESS);
 	#endif
 }
@@ -408,7 +419,9 @@ void show_usage(char* argv0)
 	cout<< "  -u             - Perform Upload measurement    				" <<endl;
 	cout<< "  -p port        - Target Port to use    						" <<endl;
 	cout<< "  -t             - Enable TLS for TCP Connections               " <<endl;
+	#if !defined(__APPLE__)
 	cout<< "  -n             - Show debugging output	 	 				" <<endl;
+	#endif
 	cout<< "  -h             - Show Help                     				" <<endl;
 	cout<< "  -v             - Show Version                  				" <<endl;
 	cout<< "  -a token       - Auth token	                  				" <<endl;

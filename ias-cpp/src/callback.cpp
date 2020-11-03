@@ -1,7 +1,7 @@
 /*!
     \file callback.cpp
     \author zafaco GmbH <info@zafaco.de>
-    \date Last update: 2020-05-26
+    \date Last update: 2020-11-03
 
     Copyright (C) 2016 - 2020 zafaco GmbH
 
@@ -42,6 +42,10 @@ CCallback::CCallback(Json measurementParameters)
 CCallback::~CCallback()
 {
 }
+
+#ifdef NNTOOL_IOS
+    std::function<void(Json::object&)> CCallback::iosCallbackFunc = nullptr;
+#endif
 
 void CCallback::callback(string cmd, string msg, int error_code, string error_description)
 {
@@ -183,11 +187,15 @@ void CCallback::callbackToPlatform(string cmd, string msg, int error_code, strin
 	    {
 	        connector.callback(jMeasurementResults);
 	    }
+    #elif NNTOOL_IOS
+        if (CCallback::iosCallbackFunc != nullptr) {
+            CCallback::iosCallbackFunc(jMeasurementResults);
+        }
     #else
 	    string platform = ::PLATFORM;
 	    string clientos = ::CLIENT_OS;
 
-	    if (platform.compare("desktop") == 0 && clientos.compare("linux") == 0)
+	    if (platform.compare("desktop") == 0 && ( clientos.compare("linux") == 0 || clientos.compare("macos") == 0 ) )
 	    {
 	    	TRC_DEBUG("Callback: " + Json(jMeasurementResults).dump());
 	    }
@@ -628,7 +636,7 @@ void CCallback::uploadCallback(string cmd)
 			tempMeasurement.upload.results[i]	+= (*AI).second;
 			tempMeasurement.upload.datasize 	+= (*AI).second;
 			
-			TRC_DEBUG( ("All Results ["+CTool::toString( (*AI).first )+"]: "+CTool::toString( (*AI).second ) ).c_str() );
+			//TRC_DEBUG( ("All Results ["+CTool::toString( (*AI).first )+"]: "+CTool::toString( (*AI).second ) ).c_str() );
 		}
 	}
 

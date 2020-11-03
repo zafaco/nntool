@@ -1,9 +1,9 @@
 /*!
     \file header.h
     \author zafaco GmbH <info@zafaco.de>
-    \date Last update: 2019-11-26
+    \date Last update: 2020-11-03
 
-    Copyright (C) 2016 - 2019 zafaco GmbH
+    Copyright (C) 2016 - 2020 zafaco GmbH
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3 
@@ -39,14 +39,27 @@
 #include <unistd.h>
 
 
-#include <netinet/ether.h>
+#ifdef __APPLE__
+    #include <TargetConditionals.h>
+	#include <net/if_dl.h>
+
+    #ifdef TARGET_OS_IPHONE
+    #elif TARGET_IPHONE_SIMULATOR
+    #elif TARGET_OS_MAC
+        #include <netinet/if_ether.h>
+    #endif
+#else
+	#include <netinet/ether.h>
+	#include <netpacket/packet.h>
+#endif
+
+
 #include <netinet/ip.h>
 #include <netinet/ip6.h>
 #include <netinet/ip_icmp.h>
 #include <netinet/tcp.h>
 #include <netinet/udp.h>
 #include <netinet/in.h>
-#include <netpacket/packet.h>
 #include <net/if.h>
 #include <arpa/inet.h>
 #include <arpa/nameser.h>
@@ -103,7 +116,7 @@ using namespace json11;
 #define ECHO 64
 #define UPLOAD_ADDITIONAL_MEASUREMENT_DURATION 2
 
-extern bool DEBUG;
+extern bool _DEBUG_;
 extern bool RUNNING;
 extern bool UNREACHABLE;
 extern bool FORBIDDEN;
@@ -142,5 +155,6 @@ extern struct measurement measurements;
 
 extern pthread_mutex_t mutex1;
 extern map<int,int> syncing_threads;
+extern pthread_mutex_t mutex_syncing_threads;
 
 #endif

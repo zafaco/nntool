@@ -1,7 +1,7 @@
 /*!
     \file download.h
     \author zafaco GmbH <info@zafaco.de>
-    \date Last update: 2020-05-26
+    \date Last update: 2020-11-03
 
     Copyright (C) 2016 - 2020 zafaco GmbH
 
@@ -42,7 +42,7 @@ class Download : public CBasisThread
 
 		struct measurement_data mDownload;
 
-		int pid;
+		uint64_t pid;
 
 		unsigned long long measurementTimeStart;
 		unsigned long long measurementTimeEnd;

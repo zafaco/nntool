@@ -1,7 +1,7 @@
 /*!
     \file ping.cpp
     \author zafaco GmbH <info@zafaco.de>
-    \date Last update: 2020-05-26
+    \date Last update: 2020-11-03
 
     Copyright (C) 2016 - 2020 zafaco GmbH
 
@@ -65,14 +65,16 @@ Ping::Ping( CConfigManager *pXml, CConfigManager *pService, string sProvider )
 //! \return 0
 int Ping::run()
 {
-    int mSock;
+    int mSock = 0;
 
     try {
 		bool ipv6validated 	= false;
 		bool bReachable		= true;
 
+		CTool::getPid(pid);
+
 		//Syslog Message
-		TRC_INFO( ("Starting Ping Thread with PID: " + CTool::toString(syscall(SYS_gettid))).c_str() );
+		TRC_INFO( ("Starting Ping Thread with PID: " + CTool::toString(pid)).c_str() );
 
 		//Create Socket Object
         std::unique_ptr<CConnection> mSocket = std::make_unique<CConnection>();
@@ -82,6 +84,11 @@ int Ping::run()
 		measurementTimeDuration = 0;
 		
 		measurementTimeStart = CTool::get_timestamp();
+
+		//Start syncing threads
+		pthread_mutex_lock(&mutex_syncing_threads);
+		syncing_threads[pid] = 0;
+		pthread_mutex_unlock(&mutex_syncing_threads);
 		
 		//Create Buffer for sending data
 		char sbuffer[ECHO];
@@ -190,15 +197,24 @@ int Ping::run()
 		setsockopt(mSock, SOL_SOCKET, SO_RCVTIMEO, (timeval *)&tv, sizeof(timeval));
 		setsockopt(mSock, SOL_SOCKET, SO_SNDTIMEO, (timeval *)&tv, sizeof(timeval));
 
-		int mResponse;
+		int mResponse = -1;
 		unsigned long long time1;
         unsigned long long time2;
+
+		bool dataReceived = false;
 
 		while( RUNNING && i <= mPingQuery )
 		{
 			#ifdef NNTOOL
-				//Send signal, we are ready
-				syncing_threads[syscall(SYS_gettid)] = 1;
+				if (!dataReceived)
+				{
+					//Send signal, we are ready
+					pthread_mutex_lock(&mutex_syncing_threads);
+					syncing_threads[pid] = 1;
+					pthread_mutex_unlock(&mutex_syncing_threads);
+
+					dataReceived = true;
+				}
 			#endif
 
 			memset(sbuffer, 0, sizeof(sbuffer));
@@ -366,7 +382,7 @@ int Ping::run()
 	close(mSock);
 	
 	//Syslog Message
-	TRC_DEBUG( ("Ending Ping Thread with PID: " + CTool::toString(syscall(SYS_gettid))).c_str() );
+	TRC_DEBUG( ("Ending Ping Thread with PID: " + CTool::toString(pid)).c_str() );
 	
 	return 0;
 }

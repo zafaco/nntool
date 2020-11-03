@@ -1,7 +1,7 @@
 /*!
     \file download.cpp
     \author zafaco GmbH <info@zafaco.de>
-    \date Last update: 2020-05-26
+    \date Last update: 2020-11-03
 
     Copyright (C) 2016 - 2020 zafaco GmbH
 
@@ -83,8 +83,10 @@ int Download::run()
 		bool ipv6validated 	= false;
 		bool bReachable		= true;
 
+		CTool::getPid(pid);
+
 		//Syslog Message
-		TRC_INFO( ("Starting Download Thread with PID: " + CTool::toString(syscall(SYS_gettid))).c_str() );
+		TRC_INFO( ("Starting Download Thread with PID: " + CTool::toString(pid)).c_str() );
 
 		//Get Hostname and make DNS Request
 		TRC_DEBUG( ("Resolving Hostname for Measurement: "+mServerName).c_str() );
@@ -127,8 +129,6 @@ int Download::run()
 
 		TRC_DEBUG( ("Resolved Hostname for Measurement: "+mServer).c_str() );
 
-		pid = syscall(SYS_gettid);
-
 		measurementTimeStart 	= 0;
 		measurementTimeEnd 		= 0;
 		measurementTimeDuration	= 0;
@@ -136,7 +136,9 @@ int Download::run()
 		measurementTimeStart = CTool::get_timestamp();
 
 		//Start syncing threads
+		pthread_mutex_lock(&mutex_syncing_threads);
 		syncing_threads[pid] = 0;
+		pthread_mutex_unlock(&mutex_syncing_threads);
 
         //Create Buffer for sending data with assured deletion
         std::unique_ptr<char[]> rbufferOwner = std::make_unique<char[]>(MAX_PACKET_SIZE);
@@ -237,7 +239,7 @@ int Download::run()
 			mConnection->close();
 
 			//Syslog Message
-			TRC_DEBUG( ("Ending Download Thread with PID: " + CTool::toString(syscall(SYS_gettid))).c_str() );
+			TRC_DEBUG( ("Ending Download Thread with PID: " + CTool::toString(pid)).c_str() );
 
 			return 0;
 		}
@@ -255,13 +257,22 @@ int Download::run()
 
 		mDownload.datasize_total = 0;
 
+		bool dataReceived = false;
+
 		while( RUNNING && TIMER_ACTIVE && !TIMER_STOPPED && !m_fStop )
 		{
 			//Get data from socket
 			mResponse = mConnection->receive(rbuffer, MAX_PACKET_SIZE, 0);
 
-			//Send signal, we are ready
-			syncing_threads[pid] = 1;
+			if (!dataReceived)
+			{
+				//Send signal, we are ready
+				pthread_mutex_lock(&mutex_syncing_threads);
+				syncing_threads[pid] = 1;
+				pthread_mutex_unlock(&mutex_syncing_threads);
+
+				dataReceived = true;
+			}
 
 			if (mResponse == -1 || mResponse == 0) {
 				//Got an error
@@ -405,7 +416,7 @@ int Download::run()
 	mConnection->close();
 
 	//Syslog Message
-	TRC_DEBUG( ("Ending Download Thread with PID: " + CTool::toString(syscall(SYS_gettid))).c_str() );
+	TRC_DEBUG( ("Ending Download Thread with PID: " + CTool::toString(pid)).c_str() );
 
 	return 0;
 }
