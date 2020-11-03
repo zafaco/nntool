@@ -25,8 +25,6 @@
 		2782F71A21188D6300C9E246 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2782F71921188D6300C9E246 /* main.m */; };
 		2782F72C21188E2300C9E246 /* Common.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2782F72521188E2300C9E246 /* Common.framework */; };
 		2782F72D21188E2300C9E246 /* Common.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2782F72521188E2300C9E246 /* Common.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		27A5A1C021DD0ABA00EA6F0B /* TNSWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A5A1B721DD097600EA6F0B /* TNSWidgets.framework */; };
-		27A5A1C121DD0ABD00EA6F0B /* NativeScript.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A5A1B421DD096700EA6F0B /* NativeScript.framework */; };
 		27BEEACA211AEFE300EAEC77 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BEEAC9211AEFE300EAEC77 /* Common.m */; };
 		27C67D802551888900ECB5D3 /* Reachability_objc.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C67D7E2551888900ECB5D3 /* Reachability_objc.m */; };
 		27C67D812551888900ECB5D3 /* Reachability_objc.h in Headers */ = {isa = PBXBuildFile; fileRef = 27C67D7F2551888900ECB5D3 /* Reachability_objc.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -133,8 +131,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27A5A1C121DD0ABD00EA6F0B /* NativeScript.framework in Frameworks */,
-				27A5A1C021DD0ABA00EA6F0B /* TNSWidgets.framework in Frameworks */,
 				273C63DD2118A39900235BC3 /* Common.framework in Frameworks */,
 				E50532B73C84099D2CAD406F /* Pods_Speed.framework in Frameworks */,
 			);
