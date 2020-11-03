@@ -1,9 +1,9 @@
 /*!
     \file basisthread.cpp
     \author zafaco GmbH <info@zafaco.de>
-    \date Last update: 2019-11-13
+    \date Last update: 2020-11-03
 
-    Copyright (C) 2016 - 2019 zafaco GmbH
+    Copyright (C) 2016 - 2020 zafaco GmbH
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3 
@@ -95,7 +95,7 @@ int CBasisThread::stopThread()
 // 	snprintf(chTrace, sizeof(chTrace), "Thread (%02x): asked to stop", (int) m_hThread);
 // 	TRC_DEBUG(chTrace);
 	
-	TRC_DEBUG("Thread "+CTool::toString( (int) m_hThread )+": asked to stop");
+	TRC_DEBUG("Thread "+CTool::toString( (int)(size_t) m_hThread )+": asked to stop");
 	
 	m_fStop = true;
 	
@@ -121,10 +121,10 @@ int CBasisThread::createThread()
 		if ( 0 != nError )
 			TRC_ERR("Creating Thread failed with Code: "+CTool::toString( nError ) );
 
-		TRC_INFO("Thread "+CTool::toString( (int) m_hThread )+": created");
+		TRC_INFO("Thread "+CTool::toString( (int)(size_t) m_hThread )+": created");
 	}
 	else
-		TRC_WARN("Thread "+CTool::toString( (int) m_hThread )+": already created");
+		TRC_WARN("Thread "+CTool::toString( (int)(size_t) m_hThread )+": already created");
 
 	return nError;
 }

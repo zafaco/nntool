@@ -1,9 +1,9 @@
 /*!
     \file trace.cpp
     \author zafaco GmbH <info@zafaco.de>
-    \date Last update: 2019-11-13
+    \date Last update: 2020-11-03
 
-    Copyright (C) 2016 - 2019 zafaco GmbH
+    Copyright (C) 2016 - 2020 zafaco GmbH
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3 
@@ -109,10 +109,16 @@ void CTrace::logInfo(const string &sMessage)
 
 void CTrace::logDebug(const string &sMessage)
 {
-	#if defined(NNTOOL_CLIENT) && !defined(__ANDROID__)
-	if (::DEBUG)
+	#if defined(NNTOOL_CLIENT) && !defined(__ANDROID__) && !defined(__APPLE__)
+	if (::_DEBUG_)
 	{
-		logToPlatform("DEBUG", sMessage);
+		logToPlatform("_DEBUG_", sMessage);
+	}
+	#endif
+	#if defined(NNTOOL_CLIENT) && defined(NNTOOL_IOS)
+	if (::_DEBUG_)
+	{
+		logToPlatform("_DEBUG_", sMessage);
 	}
 	#endif
 

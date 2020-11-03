@@ -1,7 +1,7 @@
 /*!
     \file connection.cpp
     \author zafaco GmbH <info@zafaco.de>
-    \date Last update: 2020-03-16
+    \date Last update: 2020-11-03
 
     Copyright (C) 2016 - 2020 zafaco GmbH
 
@@ -463,7 +463,7 @@ int CConnection::tlsServe()
             string certFile;
             string keyFile;
             
-            if (!dirName.compare(".") == 0 && !dirName.compare("..") == 0)
+            if (!(dirName.compare(".") == 0) && !(dirName.compare("..") == 0))
             {
                 certFile = certDir + dirName + "/" + dirName + ".crt";
                 keyFile = certDir + dirName + "/" + dirName + ".key";

@@ -1,7 +1,7 @@
 /*!
     \file tool.cpp
     \author zafaco GmbH <info@zafaco.de>
-    \date Last update: 2020-05-27
+    \date Last update: 2020-11-03
 
     Copyright (C) 2016 - 2020 zafaco GmbH
 
