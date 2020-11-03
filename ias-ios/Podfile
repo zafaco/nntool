@@ -17,20 +17,21 @@ pod 'CocoaLumberjack', '>= 3.4.2'
 
 target 'Common'
 
-
 # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
 use_frameworks!
 pod 'FMDB', '>= 2.7.2'
 pod 'CocoaLumberjack', '>= 3.4.2'
-pod 'PocketSocket', :git => 'https://github.com/net-neutrality-tools/PocketSocket'
 
-target 'Speed'
-
-pod 'nntool-shared-swift', :path => '../nntool-shared-swift'
-pod 'QoSKit', :path => '../qos-client-swift'
-pod 'qos-client-cpp', :path => '../qos-cpp'
+target 'Speed' do
+    pod 'ias-libnntool', :path => '../ias-libnntool'
+    pod 'ias-cpp', :path => '../ias-cpp'
+end
 
 target 'Demo'
+
+pod 'nntool-shared-swift', :path => '../nntool-shared-swift'
+pod 'qos-client-cpp', :path => '../qos-cpp'
+pod 'QoSKit', :path => '../qos-client-swift'
 
 post_install do |installer|
     # Disable bitcode for QoSKit because Measurement-Kit doesn't work with bitcode.

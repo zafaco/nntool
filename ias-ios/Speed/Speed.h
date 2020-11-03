@@ -1,7 +1,7 @@
 /*!
     \file Speed.h
     \author zafaco GmbH <info@zafaco.de>
-    \date Last update: 2020-04-06
+    \date Last update: 2020-11-03
 
     Copyright (C) 2016 - 2020 zafaco GmbH
 
@@ -20,6 +20,7 @@
 
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
+#import "ios_connector.h"
 
 @import CocoaLumberjack;
 @import Common;
@@ -38,11 +39,9 @@ FOUNDATION_EXPORT const unsigned char SpeedVersionString[];
 
 @required
 
--(void)measurementDidLoadWithResponse:(NSDictionary*)response withError:(NSError*)error;        /**< NSDictionary callback on measurement api load */
 -(void)measurementCallbackWithResponse:(NSDictionary*)response;                                 /**< NSDictionary measurement callback */
 -(void)measurementDidCompleteWithResponse:(NSDictionary*)response withError:(NSError*)error;    /**< NSDictionary callback on measurement complete */
 -(void)measurementDidStop;                                                                      /**< Meaurement callback on measurement stop*/
--(void)measurementDidClearCache;                                                                /**< Meaurement callback on cache cleared */
 
 @end
 
@@ -61,18 +60,15 @@ FOUNDATION_EXPORT const unsigned char SpeedVersionString[];
 
 /**************************** Public Variables ****************************/
 
-@property (nonatomic, strong) NSURL *indexUrl;                          /**< index URL */
-
 @property (nonatomic, strong) id speedDelegate;                         /**< speed Protocol Delegate */
 
-@property (nonatomic, strong) NSString *platform;                       /**< Platform Identifier */
-
 @property (nonatomic, strong) NSArray *targets;                         /**< DL/UL: Measurement target servers */
-@property (nonatomic, strong) NSString *targetsTld;                     /**< TLD of measurement target servers */
-@property (nonatomic, strong) NSString *targetsPort;                    /**< Port of measurement target servers */
+@property (nonatomic, strong) NSString *targetTld;                      /**< TLD of measurement target servers */
+@property (nonatomic, strong) NSString *targetPort;                     /**< Port of measurement target servers */
+@property (nonatomic, strong) NSString *targetPortRtt;                  /**< Port of measurement target servers */
 @property (nonatomic) NSInteger wss;                                    /**< WebSocket Secure */
 
-@property (nonatomic) bool performRttMeasurement;                       /**< Perform RTT Measurement */
+@property (nonatomic) bool performRttUdpMeasurement;                    /**< Perform RTT Measurement */
 @property (nonatomic) bool performDownloadMeasurement;                  /**< Perform Download Measurement */
 @property (nonatomic) bool performUploadMeasurement;                    /**< Perform Upload Measurement */
 @property (nonatomic) bool performRouteToClientLookup;                  /**< Perform Native RouteToClient Lookup */
@@ -80,24 +76,18 @@ FOUNDATION_EXPORT const unsigned char SpeedVersionString[];
 
 @property (nonatomic) NSInteger routeToClientTargetPort;                /**< RouteToClient Target Port */
 
-@property (nonatomic, strong) NSNumber *startupTime;                    /**< DL/UL: Time between connection established and Measurement Start in ms */
-@property (nonatomic, strong) NSNumber *measureTime;                    /**< DL/UL: Measurement Duration in ms */
 @property (nonatomic, strong) NSNumber *parallelStreamsDownload;        /**< DL: Number of parallel Measurement Streams */
 @property (nonatomic, strong) NSNumber *parallelStreamsUpload;          /**< UL: Number of parallel Measurement Streams */
-@property (nonatomic, strong) NSNumber *frameSizeDownload;              /**< DL: WebSocket Frame Size */
-@property (nonatomic, strong) NSNumber *frameSizeUpload;                /**< UL: WebSocket Frame Size */
 
-@property (nonatomic, strong) NSMutableArray *downloadClasses;          /**< DL: class configuration */
-@property (nonatomic, strong) NSMutableArray *uploadClasses;            /**< UL: class configuration */
+
+
 
 @property (nonatomic, strong) NSString *authToken;                      /**< Authentication Token */
 @property (nonatomic, strong) NSString *authTimestamp;                  /**< Authentication Timestamp */
 
 /**************************** Public Delegate Functions Speed ****************************/
 
--(void)measurementLoad;                                     /**< Load Measurement API */
--(void)measurementStart;                                    /**< Start Measurement */
--(void)measurementStop;                                     /**< Stop Measurement */
--(void)measurementClearCache;                               /**< Clear Measurement Cache */
+-(void)measurementStart;                                                /**< Start Measurement */
+-(void)measurementStop;                                                 /**< Stop Measurement */
 
 @end
