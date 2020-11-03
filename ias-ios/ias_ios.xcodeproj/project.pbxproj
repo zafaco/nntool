@@ -341,7 +341,6 @@
 			buildConfigurationList = 273C63D621189F6B00235BC3 /* Build configuration list for PBXNativeTarget "Speed" */;
 			buildPhases = (
 				1DC7CC6B4497AEF6C0554CB5 /* [CP] Check Pods Manifest.lock */,
-				27A618E521199B1B001351E0 /* TNS Create Metadata */,
 				273C63C821189F6B00235BC3 /* Sources */,
 				273C63C921189F6B00235BC3 /* Frameworks */,
 				273C63CA21189F6B00235BC3 /* Headers */,
@@ -504,20 +503,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		27A618E521199B1B001351E0 /* TNS Create Metadata */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "TNS Create Metadata";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "cd \"$PROJECT_DIR/../ias-mobile/platforms/ios/internal/metadata-generator/bin\" && ./build-step-metadata-generator.py\n";
-		};
 		3CF289DF22D4899C00EFC720 /* Thinning out Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -659,10 +644,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(inherited)",
-					"$(PROJECT_DIR)/../ias-mobile/frameworks/ios/dev",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FMDB\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/PocketSocket\"",
 				);
 				INFOPLIST_FILE = speed/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -678,8 +661,6 @@
 					"\"CocoaLumberjack\"",
 					"-framework",
 					"\"FMDB\"",
-					"-framework",
-					"\"PocketSocket\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zafaco.Speed;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -706,10 +687,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(inherited)",
-					"$(PROJECT_DIR)/../ias-mobile/frameworks/ios/dev",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FMDB\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/PocketSocket\"",
 				);
 				INFOPLIST_FILE = speed/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -725,8 +704,6 @@
 					"\"CocoaLumberjack\"",
 					"-framework",
 					"\"FMDB\"",
-					"-framework",
-					"\"PocketSocket\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zafaco.Speed;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
