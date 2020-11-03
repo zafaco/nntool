@@ -28,9 +28,9 @@
 		27A5A1C021DD0ABA00EA6F0B /* TNSWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A5A1B721DD097600EA6F0B /* TNSWidgets.framework */; };
 		27A5A1C121DD0ABD00EA6F0B /* NativeScript.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A5A1B421DD096700EA6F0B /* NativeScript.framework */; };
 		27BEEACA211AEFE300EAEC77 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BEEAC9211AEFE300EAEC77 /* Common.m */; };
+		27C67D802551888900ECB5D3 /* Reachability_objc.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C67D7E2551888900ECB5D3 /* Reachability_objc.m */; };
+		27C67D812551888900ECB5D3 /* Reachability_objc.h in Headers */ = {isa = PBXBuildFile; fileRef = 27C67D7F2551888900ECB5D3 /* Reachability_objc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		27C833F4211891F4008C603B /* Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C833F3211891F4008C603B /* Tool.m */; };
-		27C833F72118925A008C603B /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C833F52118925A008C603B /* Reachability.m */; };
-		27C833F82118925A008C603B /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 27C833F62118925A008C603B /* Reachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		27C833FA21189391008C603B /* Tool.h in Headers */ = {isa = PBXBuildFile; fileRef = 27C833F921189390008C603B /* Tool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		27C83408211895B3008C603B /* Database.h in Headers */ = {isa = PBXBuildFile; fileRef = 27C83404211895B3008C603B /* Database.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		27C83409211895B3008C603B /* Http.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C83405211895B3008C603B /* Http.m */; };
@@ -106,9 +106,9 @@
 		27A5A1BA21DD098700EA6F0B /* NativeScript.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NativeScript.framework; path = "../ias-mobile/frameworks/ios/dist/NativeScript.framework"; sourceTree = "<group>"; };
 		27A5A1BB21DD098700EA6F0B /* TNSWidgets.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TNSWidgets.framework; path = "../ias-mobile/frameworks/ios/dist/TNSWidgets.framework"; sourceTree = "<group>"; };
 		27BEEAC9211AEFE300EAEC77 /* Common.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
+		27C67D7E2551888900ECB5D3 /* Reachability_objc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability_objc.m; sourceTree = "<group>"; };
+		27C67D7F2551888900ECB5D3 /* Reachability_objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability_objc.h; sourceTree = "<group>"; };
 		27C833F3211891F4008C603B /* Tool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tool.m; sourceTree = "<group>"; };
-		27C833F52118925A008C603B /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		27C833F62118925A008C603B /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		27C833F921189390008C603B /* Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tool.h; sourceTree = "<group>"; };
 		27C83404211895B3008C603B /* Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Database.h; sourceTree = "<group>"; };
 		27C83405211895B3008C603B /* Http.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Http.m; sourceTree = "<group>"; };
@@ -219,10 +219,10 @@
 		2782F72621188E2300C9E246 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				27C67D7F2551888900ECB5D3 /* Reachability_objc.h */,
+				27C67D7E2551888900ECB5D3 /* Reachability_objc.m */,
 				273C63DA2118A09500235BC3 /* LogFormatter.h */,
 				273C63D92118A09500235BC3 /* LogFormatter.m */,
-				27C833F62118925A008C603B /* Reachability.h */,
-				27C833F52118925A008C603B /* Reachability.m */,
 				27C83404211895B3008C603B /* Database.h */,
 				27C83407211895B3008C603B /* Database.m */,
 				27C83406211895B3008C603B /* Http.h */,
@@ -327,8 +327,8 @@
 				27C8340A211895B3008C603B /* Http.h in Headers */,
 				27C83408211895B3008C603B /* Database.h in Headers */,
 				273C63DC2118A09500235BC3 /* LogFormatter.h in Headers */,
-				27C833F82118925A008C603B /* Reachability.h in Headers */,
 				273C63C621189B2F00235BC3 /* Common.h in Headers */,
+				27C67D812551888900ECB5D3 /* Reachability_objc.h in Headers */,
 				27C833FA21189391008C603B /* Tool.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
