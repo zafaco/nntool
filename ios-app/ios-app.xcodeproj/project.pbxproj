@@ -163,6 +163,8 @@
 		0D4DE6E69AB115557FA300EC /* Pods-All-BEREC_nntool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-BEREC_nntool.debug.xcconfig"; path = "Target Support Files/Pods-All-BEREC_nntool/Pods-All-BEREC_nntool.debug.xcconfig"; sourceTree = "<group>"; };
 		2772BEF32551967000BC3E6E /* Reachability_objc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability_objc.m; path = "../../ias-ios/Common/Reachability_objc.m"; sourceTree = "<group>"; };
 		2772BEF42551967000BC3E6E /* Reachability_objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability_objc.h; path = "../../ias-ios/Common/Reachability_objc.h"; sourceTree = "<group>"; };
+		2772BF09255197F700BC3E6E /* ios_connector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ios_connector.mm; path = "../../ias-cpp/src/ios_connector.mm"; sourceTree = "<group>"; };
+		2772BF0A255197F700BC3E6E /* ios_connector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ios_connector.h; path = "../../ias-cpp/src/ios_connector.h"; sourceTree = "<group>"; };
 		280829905CC742297F3CD799 /* Pods-All-Speed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-Speed.release.xcconfig"; path = "Target Support Files/Pods-All-Speed/Pods-All-Speed.release.xcconfig"; sourceTree = "<group>"; };
 		2DE5D0E278879E07611256DA /* Pods-All-Common.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-Common.release.xcconfig"; path = "Target Support Files/Pods-All-Common/Pods-All-Common.release.xcconfig"; sourceTree = "<group>"; };
 		4042E14D8B38AC9EAFAC182E /* Pods_All_BEREC_nntool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_All_BEREC_nntool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -377,6 +379,8 @@
 		E00F48EC225F7D3B00EAD0C0 /* Speed */ = {
 			isa = PBXGroup;
 			children = (
+				2772BF0A255197F700BC3E6E /* ios_connector.h */,
+				2772BF09255197F700BC3E6E /* ios_connector.mm */,
 				E00F4913225F7D9B00EAD0C0 /* Info.plist */,
 				E00F4911225F7D9B00EAD0C0 /* Speed.h */,
 				E00F4912225F7D9B00EAD0C0 /* Speed.m */,
@@ -687,6 +691,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E00F4914225F7D9C00EAD0C0 /* Speed.h in Headers */,
+				2772BF0D2551981300BC3E6E /* ios_connector.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

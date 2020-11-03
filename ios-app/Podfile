@@ -35,6 +35,8 @@ abstract_target 'All' do
   target 'Speed' do
     pod 'FMDB', '>= 2.7.2'
     pod 'CocoaLumberjack', '>= 3.4.2'
+    pod 'ias-libnntool', :path => '../ias-libnntool'
+    pod 'ias-cpp', :path => '../ias-cpp'
   end
 end
 
