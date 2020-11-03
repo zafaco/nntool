@@ -581,8 +581,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				27BEEACA211AEFE300EAEC77 /* Common.m in Sources */,
-				27C833F72118925A008C603B /* Reachability.m in Sources */,
 				27C83409211895B3008C603B /* Http.m in Sources */,
+				27C67D802551888900ECB5D3 /* Reachability_objc.m in Sources */,
 				27C8340B211895B3008C603B /* Database.m in Sources */,
 				27C833F4211891F4008C603B /* Tool.m in Sources */,
 				273C63DB2118A09500235BC3 /* LogFormatter.m in Sources */,
