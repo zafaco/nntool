@@ -28,6 +28,7 @@
 		27BEEACA211AEFE300EAEC77 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BEEAC9211AEFE300EAEC77 /* Common.m */; };
 		27C67D802551888900ECB5D3 /* Reachability_objc.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C67D7E2551888900ECB5D3 /* Reachability_objc.m */; };
 		27C67D812551888900ECB5D3 /* Reachability_objc.h in Headers */ = {isa = PBXBuildFile; fileRef = 27C67D7F2551888900ECB5D3 /* Reachability_objc.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		27C67D8F25518A9E00ECB5D3 /* ios_connector.h in Headers */ = {isa = PBXBuildFile; fileRef = 27C67D8D25518A9E00ECB5D3 /* ios_connector.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		27C833F4211891F4008C603B /* Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C833F3211891F4008C603B /* Tool.m */; };
 		27C833FA21189391008C603B /* Tool.h in Headers */ = {isa = PBXBuildFile; fileRef = 27C833F921189390008C603B /* Tool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		27C83408211895B3008C603B /* Database.h in Headers */ = {isa = PBXBuildFile; fileRef = 27C83404211895B3008C603B /* Database.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -106,6 +107,8 @@
 		27BEEAC9211AEFE300EAEC77 /* Common.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
 		27C67D7E2551888900ECB5D3 /* Reachability_objc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability_objc.m; sourceTree = "<group>"; };
 		27C67D7F2551888900ECB5D3 /* Reachability_objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability_objc.h; sourceTree = "<group>"; };
+		27C67D8C25518A9E00ECB5D3 /* ios_connector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ios_connector.mm; path = "../../ias-cpp/src/ios_connector.mm"; sourceTree = "<group>"; };
+		27C67D8D25518A9E00ECB5D3 /* ios_connector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ios_connector.h; path = "../../ias-cpp/src/ios_connector.h"; sourceTree = "<group>"; };
 		27C833F3211891F4008C603B /* Tool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tool.m; sourceTree = "<group>"; };
 		27C833F921189390008C603B /* Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tool.h; sourceTree = "<group>"; };
 		27C83404211895B3008C603B /* Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Database.h; sourceTree = "<group>"; };
@@ -168,6 +171,8 @@
 		273C63CE21189F6B00235BC3 /* Speed */ = {
 			isa = PBXGroup;
 			children = (
+				27C67D8D25518A9E00ECB5D3 /* ios_connector.h */,
+				27C67D8C25518A9E00ECB5D3 /* ios_connector.mm */,
 				273C63CF21189F6B00235BC3 /* Speed.h */,
 				273C63DE2118A3F700235BC3 /* Speed.m */,
 				273C63D021189F6B00235BC3 /* Info.plist */,
@@ -313,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				273C63D121189F6B00235BC3 /* Speed.h in Headers */,
+				27C67D8F25518A9E00ECB5D3 /* ios_connector.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
