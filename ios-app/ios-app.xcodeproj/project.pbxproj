@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		028BCD1C5DB207312A53426F /* Pods_All_Speed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC9DAE7413ECAE8092FFC80 /* Pods_All_Speed.framework */; };
+		2772BEF52551967000BC3E6E /* Reachability_objc.m in Sources */ = {isa = PBXBuildFile; fileRef = 2772BEF32551967000BC3E6E /* Reachability_objc.m */; };
+		2772BEF62551967000BC3E6E /* Reachability_objc.h in Headers */ = {isa = PBXBuildFile; fileRef = 2772BEF42551967000BC3E6E /* Reachability_objc.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2772BF0D2551981300BC3E6E /* ios_connector.h in Headers */ = {isa = PBXBuildFile; fileRef = 2772BF0A255197F700BC3E6E /* ios_connector.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E39AF08D64A16ACF982E352 /* Pods_All_BEREC_nntool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4042E14D8B38AC9EAFAC182E /* Pods_All_BEREC_nntool.framework */; };
 		B0A836C925FAEE0ED120983A /* Pods_All_Common.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3142E3D228324ABA957A394 /* Pods_All_Common.framework */; };
 		E0024634238C41D400681144 /* MeasurementHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0024633238C41D300681144 /* MeasurementHelper.swift */; };
@@ -19,7 +22,6 @@
 		E00F48F2225F7D3B00EAD0C0 /* Speed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E00F48EB225F7D3A00EAD0C0 /* Speed.framework */; };
 		E00F48F3225F7D3B00EAD0C0 /* Speed.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E00F48EB225F7D3A00EAD0C0 /* Speed.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E00F4904225F7D6000EAD0C0 /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = E00F48F7225F7D5E00EAD0C0 /* Database.m */; };
-		E00F4905225F7D6000EAD0C0 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = E00F48F8225F7D5E00EAD0C0 /* Reachability.m */; };
 		E00F4906225F7D6000EAD0C0 /* Tool.h in Headers */ = {isa = PBXBuildFile; fileRef = E00F48F9225F7D5E00EAD0C0 /* Tool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E00F4907225F7D6000EAD0C0 /* LogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = E00F48FA225F7D5F00EAD0C0 /* LogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E00F4908225F7D6000EAD0C0 /* Http.m in Sources */ = {isa = PBXBuildFile; fileRef = E00F48FB225F7D5F00EAD0C0 /* Http.m */; };
@@ -29,7 +31,6 @@
 		E00F490C225F7D6000EAD0C0 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = E00F48FF225F7D5F00EAD0C0 /* Common.m */; };
 		E00F490E225F7D6000EAD0C0 /* Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = E00F4901225F7D6000EAD0C0 /* Tool.m */; };
 		E00F490F225F7D6000EAD0C0 /* LogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = E00F4902225F7D6000EAD0C0 /* LogFormatter.m */; };
-		E00F4910225F7D6000EAD0C0 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = E00F4903225F7D6000EAD0C0 /* Reachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E00F4914225F7D9C00EAD0C0 /* Speed.h in Headers */ = {isa = PBXBuildFile; fileRef = E00F4911225F7D9B00EAD0C0 /* Speed.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E00F4915225F7D9C00EAD0C0 /* Speed.m in Sources */ = {isa = PBXBuildFile; fileRef = E00F4912225F7D9B00EAD0C0 /* Speed.m */; };
 		E00F4918225F7DC900EAD0C0 /* ias.mobile.js in Resources */ = {isa = PBXBuildFile; fileRef = E00F4917225F7DC900EAD0C0 /* ias.mobile.js */; };
@@ -167,6 +168,8 @@
 /* Begin PBXFileReference section */
 		0B10DBD62832A59CDD7B8F28 /* Pods-All-Common.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-Common.debug.xcconfig"; path = "Target Support Files/Pods-All-Common/Pods-All-Common.debug.xcconfig"; sourceTree = "<group>"; };
 		0D4DE6E69AB115557FA300EC /* Pods-All-BEREC_nntool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-BEREC_nntool.debug.xcconfig"; path = "Target Support Files/Pods-All-BEREC_nntool/Pods-All-BEREC_nntool.debug.xcconfig"; sourceTree = "<group>"; };
+		2772BEF32551967000BC3E6E /* Reachability_objc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability_objc.m; path = "../../ias-ios/Common/Reachability_objc.m"; sourceTree = "<group>"; };
+		2772BEF42551967000BC3E6E /* Reachability_objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability_objc.h; path = "../../ias-ios/Common/Reachability_objc.h"; sourceTree = "<group>"; };
 		280829905CC742297F3CD799 /* Pods-All-Speed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-Speed.release.xcconfig"; path = "Target Support Files/Pods-All-Speed/Pods-All-Speed.release.xcconfig"; sourceTree = "<group>"; };
 		2DE5D0E278879E07611256DA /* Pods-All-Common.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-Common.release.xcconfig"; path = "Target Support Files/Pods-All-Common/Pods-All-Common.release.xcconfig"; sourceTree = "<group>"; };
 		4042E14D8B38AC9EAFAC182E /* Pods_All_BEREC_nntool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_All_BEREC_nntool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -182,7 +185,6 @@
 		E00F48D9225F7D2600EAD0C0 /* Common.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Common.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E00F48EB225F7D3A00EAD0C0 /* Speed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Speed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E00F48F7225F7D5E00EAD0C0 /* Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Database.m; path = "../../ias-ios/Common/Database.m"; sourceTree = "<group>"; };
-		E00F48F8225F7D5E00EAD0C0 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = "../../ias-ios/Common/Reachability.m"; sourceTree = "<group>"; };
 		E00F48F9225F7D5E00EAD0C0 /* Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tool.h; path = "../../ias-ios/Common/Tool.h"; sourceTree = "<group>"; };
 		E00F48FA225F7D5F00EAD0C0 /* LogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogFormatter.h; path = "../../ias-ios/Common/LogFormatter.h"; sourceTree = "<group>"; };
 		E00F48FB225F7D5F00EAD0C0 /* Http.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Http.m; path = "../../ias-ios/Common/Http.m"; sourceTree = "<group>"; };
@@ -193,7 +195,6 @@
 		E00F4900225F7D6000EAD0C0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../../ias-ios/Common/Info.plist"; sourceTree = "<group>"; };
 		E00F4901225F7D6000EAD0C0 /* Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tool.m; path = "../../ias-ios/Common/Tool.m"; sourceTree = "<group>"; };
 		E00F4902225F7D6000EAD0C0 /* LogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogFormatter.m; path = "../../ias-ios/Common/LogFormatter.m"; sourceTree = "<group>"; };
-		E00F4903225F7D6000EAD0C0 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = "../../ias-ios/Common/Reachability.h"; sourceTree = "<group>"; };
 		E00F4911225F7D9B00EAD0C0 /* Speed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Speed.h; path = "../../ias-ios/Speed/Speed.h"; sourceTree = "<group>"; };
 		E00F4912225F7D9B00EAD0C0 /* Speed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Speed.m; path = "../../ias-ios/Speed/Speed.m"; sourceTree = "<group>"; };
 		E00F4913225F7D9B00EAD0C0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../../ias-ios/Speed/Info.plist"; sourceTree = "<group>"; };
@@ -372,6 +373,8 @@
 		E00F48DA225F7D2600EAD0C0 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				2772BEF42551967000BC3E6E /* Reachability_objc.h */,
+				2772BEF32551967000BC3E6E /* Reachability_objc.m */,
 				E00F48FE225F7D5F00EAD0C0 /* Common.h */,
 				E00F48FF225F7D5F00EAD0C0 /* Common.m */,
 				E00F48FD225F7D5F00EAD0C0 /* Database.h */,
@@ -381,8 +384,6 @@
 				E00F4900225F7D6000EAD0C0 /* Info.plist */,
 				E00F48FA225F7D5F00EAD0C0 /* LogFormatter.h */,
 				E00F4902225F7D6000EAD0C0 /* LogFormatter.m */,
-				E00F4903225F7D6000EAD0C0 /* Reachability.h */,
-				E00F48F8225F7D5E00EAD0C0 /* Reachability.m */,
 				E00F48F9225F7D5E00EAD0C0 /* Tool.h */,
 				E00F4901225F7D6000EAD0C0 /* Tool.m */,
 			);
@@ -712,9 +713,9 @@
 				E00F4909225F7D6000EAD0C0 /* Http.h in Headers */,
 				E00F490A225F7D6000EAD0C0 /* Database.h in Headers */,
 				E00F4907225F7D6000EAD0C0 /* LogFormatter.h in Headers */,
+				2772BEF62551967000BC3E6E /* Reachability_objc.h in Headers */,
 				E00F4906225F7D6000EAD0C0 /* Tool.h in Headers */,
 				E00F490B225F7D6000EAD0C0 /* Common.h in Headers */,
-				E00F4910225F7D6000EAD0C0 /* Reachability.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1159,8 +1160,8 @@
 			files = (
 				E00F490E225F7D6000EAD0C0 /* Tool.m in Sources */,
 				E00F490F225F7D6000EAD0C0 /* LogFormatter.m in Sources */,
+				2772BEF52551967000BC3E6E /* Reachability_objc.m in Sources */,
 				E00F490C225F7D6000EAD0C0 /* Common.m in Sources */,
-				E00F4905225F7D6000EAD0C0 /* Reachability.m in Sources */,
 				E00F4904225F7D6000EAD0C0 /* Database.m in Sources */,
 				E00F4908225F7D6000EAD0C0 /* Http.m in Sources */,
 			);
