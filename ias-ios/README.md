@@ -28,7 +28,7 @@ Launch the App *ias_ios* in ios-simulator or on an ios-device and select *Start*
 
 ias-ios is released under the AGPLv3 <https://www.gnu.org/licenses/agpl-3.0.txt>
 
-Copyright (C) 2016-2019 zafaco GmbH
+Copyright (C) 2016-2020 zafaco GmbH
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License version 3 
