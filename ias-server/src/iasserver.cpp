@@ -1,7 +1,7 @@
 /*!
     \file iasserver.cpp
     \author zafaco GmbH <info@zafaco.de>
-    \date Last update: 2020-05-11
+    \date Last update: 2020-11-03
 
     Copyright (C) 2016 - 2020 zafaco GmbH
 
@@ -44,7 +44,7 @@ int mPortTraceroute     = 0;
 int mPortTracerouteTls  = 0;
 int mPortUdp            = 0;
 
-pthread_mutex_t mutexLoad;
+pthread_mutex_t mutexLoad = PTHREAD_MUTEX_INITIALIZER;
 
 
 
