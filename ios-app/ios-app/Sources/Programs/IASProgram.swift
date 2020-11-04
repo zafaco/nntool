@@ -39,12 +39,10 @@ class IASProgram: NSObject, ProgramProtocol {
     var serverAddress: String?
     var serverPort: String?
     var encryption = false
-    
+
+    private var currentPhase = SpeedMeasurementPhase.rtt
     var authToken: String?
     var authTimestamp: String?
-
-    private var currentPhase = SpeedMeasurementPhase.initialize
-
     var result: [AnyHashable: Any]?
 
     private var relativeStartTimeNs: UInt64?
@@ -65,22 +63,17 @@ class IASProgram: NSObject, ProgramProtocol {
 
         speed.speedDelegate = self
 
-        delegate?.iasMeasurement(self, didStartPhase: .initialize)
-
-        speed.measurementLoad()
-
-        ////
-
         if let addr = serverAddress, let port = serverPort {
-            speed.targetsTld = ""
+            speed.targetTld = ""
             speed.targets = [addr]
-            speed.targetsPort = port
+            speed.targetPort = port
         } else {
-            speed.targetsTld = "net-neutrality.tools"
+            speed.targetTld = "net-neutrality.tools"
             speed.targets = ["peer-ias-de-01-ipv4"]
-            speed.targetsPort = "80"
+            speed.targetPort = "80"
         }
 
+        speed.targetPortRtt = "80"
         speed.wss = encryption ? 1 : 0
 
         if authToken != nil && authTimestamp != nil {
@@ -88,27 +81,14 @@ class IASProgram: NSObject, ProgramProtocol {
             speed.authTimestamp = authTimestamp
         }
 
-        speed.platform = "mobile"
-        speed.performRttMeasurement      = programConfiguration?.enabledTasks.contains("rtt") ?? true
+        speed.performRttUdpMeasurement   = programConfiguration?.enabledTasks.contains("rtt") ?? true
         speed.performDownloadMeasurement = programConfiguration?.enabledTasks.contains("download") ?? true
         speed.performUploadMeasurement   = programConfiguration?.enabledTasks.contains("upload") ?? true
         speed.performRouteToClientLookup = false
         speed.performGeolocationLookup   = false
 
-        // add speed classes (need to transform to Dictionary until Speed library works with objects)
-        if let c = config {
-            for dl in c.download {
-                if let dlDict = try? JSONSerialization.jsonObject(with: encoder.encode(dl), options: []) {
-                    speed.downloadClasses.add(dlDict)
-                }
-            }
-
-            for ul in c.upload {
-                if let ulDict = try? JSONSerialization.jsonObject(with: encoder.encode(ul), options: []) {
-                    speed.uploadClasses.add(ulDict)
-                }
-            }
-        }
+        speed.measurementStart()
+        delegate?.iasMeasurement(self, didStartPhase: .rtt)
 
         let semaphoreResult = measurementFinishedSemaphore.wait(timeout: DispatchTime.distantFuture)
         if semaphoreResult == .timedOut {
@@ -140,78 +120,70 @@ class IASProgram: NSObject, ProgramProtocol {
 
         res.status = .finished
 
-        if let rttInfo = r["rtt_info"] as? [AnyHashable: Any] {
-            res.durationRttNs = rttInfo["duration_ns"] as? UInt64
+        if let rttInfo = r["rtt_udp_info"] as? [AnyHashable: Any] {
+            res.durationRttNs = UInt64((rttInfo["duration_ns"] as? String)!)
 
             res.rttInfo = RttInfoDto()
 
-            res.rttInfo?.numError = rttInfo["num_error"] as? Int
-            res.rttInfo?.numMissing = rttInfo["num_missing"] as? Int
-            res.rttInfo?.numReceived = rttInfo["num_received"] as? Int
-            res.rttInfo?.numSent = rttInfo["num_sent"] as? Int
-            res.rttInfo?.packetSize = rttInfo["packet_size"] as? Int
+            res.rttInfo?.numError = (rttInfo["num_error"] as? NSString)?.integerValue
+            res.rttInfo?.numMissing = (rttInfo["num_missing"] as? NSString)?.integerValue
+            res.rttInfo?.numReceived = (rttInfo["num_received"] as? NSString)?.integerValue
+            res.rttInfo?.numSent = (rttInfo["num_sent"] as? NSString)?.integerValue
+            res.rttInfo?.packetSize = (rttInfo["packet_size"] as? NSString)?.integerValue
 
             res.rttInfo?.requestedNumPackets = Int(res.rttInfo?.numError ?? 0) + Int(res.rttInfo?.numMissing ?? 0) + Int(res.rttInfo?.numReceived ?? 0)
 
             // TODO: these values should be calculated on the collector.
-            res.rttInfo?.averageNs = rttInfo["average_ns"] as? UInt64
-            res.rttInfo?.maximumNs = rttInfo["max_ns"] as? UInt64
-            res.rttInfo?.medianNs = rttInfo["median_ns"] as? UInt64
-            res.rttInfo?.minimumNs = rttInfo["min_ns"] as? UInt64
-            res.rttInfo?.standardDeviationNs = rttInfo["standard_deviation_ns"] as? UInt64
+            res.rttInfo?.averageNs = UInt64((rttInfo["average_ns"]  as? String)!)
+            res.rttInfo?.maximumNs = UInt64((rttInfo["max_ns"] as? String)!)
+            res.rttInfo?.medianNs = UInt64((rttInfo["median_ns"] as? String)!)
+            res.rttInfo?.minimumNs = UInt64((rttInfo["min_ns"] as? String)!)
+            res.rttInfo?.standardDeviationNs = UInt64((rttInfo["standard_deviation_ns"] as? String)!)
             //
 
-            res.rttInfo?.rtts = (rttInfo["rtts"] as? [[AnyHashable: Any]])?.map { RttDto(rttNs: $0["rtt_ns"] as? UInt64, relativeTimeNs: $0["relative_time_ns_measurement_start"] as? UInt64) }
+            res.rttInfo?.rtts = (rttInfo["rtts"] as? [[AnyHashable: Any]])?.map {
+                RttDto(rttNs: $0["rtt_ns"] as? UInt64, relativeTimeNs: UInt64(($0["relative_time_ns_measurement_start"] as? String)!) )
+            }
         }
 
         res.connectionInfo = ConnectionInfoDto()
 
         if let lastDownloadInfo = (r["download_info"] as? [[AnyHashable: Any]])?.last {
-            res.bytesDownload = lastDownloadInfo["bytes"] as? UInt64
-            res.bytesDownloadIncludingSlowStart = lastDownloadInfo["bytes_including_slow_start"] as? UInt64
-            res.durationDownloadNs = lastDownloadInfo["duration_ns"] as? UInt64
+            res.bytesDownload = UInt64((lastDownloadInfo["bytes"] as? String)!)
+            res.bytesDownloadIncludingSlowStart = UInt64((lastDownloadInfo["bytes_including_slow_start"] as? String)!)
+            res.durationDownloadNs = UInt64((lastDownloadInfo["duration_ns"] as? String)!)
 
-            res.connectionInfo?.actualNumStreamsDownload = lastDownloadInfo["num_streams_end"] as? Int
-            res.connectionInfo?.requestedNumStreamsDownload = lastDownloadInfo["num_streams_start"] as? Int
-
-            res.connectionInfo?.webSocketInfoDownload = createWebsocketInfoDto(lastDownloadInfo)
+            res.connectionInfo?.actualNumStreamsDownload = (lastDownloadInfo["num_streams_end"] as? NSString)?.integerValue
+            res.connectionInfo?.requestedNumStreamsDownload = (lastDownloadInfo["num_streams_start"] as? NSString)?.integerValue
         }
 
         if let lastUploadInfo = (r["upload_info"] as? [[AnyHashable: Any]])?.last {
-            res.bytesUpload = lastUploadInfo["bytes"] as? UInt64
-            res.bytesUploadIncludingSlowStart = lastUploadInfo["bytes_including_slow_start"] as? UInt64
-            res.durationUploadNs = lastUploadInfo["duration_ns"] as? UInt64
+            res.bytesUpload = UInt64((lastUploadInfo["bytes"] as? String)!)
+            res.bytesUploadIncludingSlowStart = UInt64((lastUploadInfo["bytes_including_slow_start"] as? String)!)
+            res.durationUploadNs = UInt64((lastUploadInfo["duration_ns"] as? String)!)
 
-            res.connectionInfo?.actualNumStreamsUpload = lastUploadInfo["num_streams_end"] as? Int
-            res.connectionInfo?.requestedNumStreamsUpload = lastUploadInfo["num_streams_start"] as? Int
-
-            res.connectionInfo?.webSocketInfoUpload = createWebsocketInfoDto(lastUploadInfo)
+            res.connectionInfo?.actualNumStreamsUpload = (lastUploadInfo["num_streams_end"] as? NSString)?.integerValue
+            res.connectionInfo?.requestedNumStreamsUpload = (lastUploadInfo["num_streams_start"] as? NSString)?.integerValue
         }
 
-        if let timeInfo = r["time_info"] as? [AnyHashable: UInt64] {
-            if let rttStart = timeInfo["rtt_start"] {
-                res.relativeStartTimeRttNs = rttStart - startTimeMs * NSEC_PER_MSEC // IAS timestamps reference 1970
+        if let timeInfo = r["time_info"] as? [AnyHashable: Any] {
+            if timeInfo["rtt_udp_start"] != nil {
+                res.relativeStartTimeRttNs = UInt64((timeInfo["rtt_udp_start"] as? String)!)! - startTimeMs * NSEC_PER_MSEC // TODO: startTimeNs is not in unix timestamp
             }
-
-            if let dlStart = timeInfo["download_start"] {
-                res.relativeStartTimeDownloadNs = dlStart - startTimeMs * 1000000 // IAS timestamps reference 1970
+            if timeInfo["download_start"] != nil {
+                res.relativeStartTimeDownloadNs = UInt64((timeInfo["download_start"] as? String)!)! - startTimeMs * NSEC_PER_MSEC // TODO: startTimeNs is not in unix timestamp
             }
-
-            if let ulStart = timeInfo["upload_start"] {
-                res.relativeStartTimeUploadNs = ulStart - startTimeMs * 1000000 // IAS timestamps reference 1970
+            if timeInfo["upload_start"] != nil {
+                res.relativeStartTimeUploadNs = UInt64((timeInfo["upload_start"] as? String)!)! - startTimeMs * NSEC_PER_MSEC // TODO: startTimeNs is not in unix timestamp
             }
         }
 
         res.connectionInfo?.address = serverAddress
         res.connectionInfo?.encrypted = encryption
-        //res.connectionInfo?.encryptionInfo
+
         if let serverPort = serverPort, let port = UInt16(serverPort) {
             res.connectionInfo?.port = port
         }
-        //res.connectionInfo?.serverMss
-        //res.connectionInfo?.serverMtu
-        //res.connectionInfo?.tcpOptSackRequested
-        //res.connectionInfo?.tcpOptWscaleRequested
 
         if let dlStartTraffic = interfaceTrafficDownloadStart {
             if let ulStartTraffic = interfaceTrafficUploadStart {
@@ -230,18 +202,6 @@ class IASProgram: NSObject, ProgramProtocol {
         return res
     }
     // swiftlint:enable cyclomatic_complexity
-
-    func createWebsocketInfoDto(_ dict: [AnyHashable: Any]) -> WebSocketInfoDto {
-        let wsInfo = WebSocketInfoDto()
-        wsInfo.frameCount = dict["frame_count"] as? Int
-        wsInfo.frameCountIncludingSlowStart = dict["frame_count_including_slow_start"] as? Int
-        wsInfo.frameSize = dict["frame_size"] as? Int
-        wsInfo.overhead = dict["overhead"] as? Int
-        wsInfo.overheadIncludingSlowStart = dict["overhead_including_slow_start"] as? Int
-        wsInfo.overheadPerFrame = dict["overhead_per_frame"] as? Int
-
-        return wsInfo
-    }
 
     func cancel() {
         speed.measurementStop()
@@ -296,9 +256,9 @@ extension IASProgram: SpeedDelegate {
     private func handleCmdReport(_ response: [AnyHashable: Any]!) {
         if let primaryValue: Double = {
             switch currentPhase {
-            case .rtt: return (response["rtt_info"] as? [AnyHashable: Any])?[/*"min_ns"*/"average_ns"] as? Double
-            case .download: return (response["download_info"] as? [[AnyHashable: Any]])?.last?["throughput_avg_bps"] as? Double
-            case .upload: return (response["upload_info"] as? [[AnyHashable: Any]])?.last?["throughput_avg_bps"] as? Double
+            case .rtt: return Double(((response["rtt_udp_info"] as? [AnyHashable: Any])? ["average_ns"] as? String)!)
+            case .download: return Double(((response["download_info"] as? [[AnyHashable: Any]])?.last?["throughput_avg_bps"] as? String)!)
+            case .upload: return Double(((response["upload_info"] as? [[AnyHashable: Any]])?.last?["throughput_avg_bps"] as? String)!)
             default:
                 return nil
             }
@@ -312,33 +272,22 @@ extension IASProgram: SpeedDelegate {
         case .initialize:
             break
         case .rtt:
-            if  let rttInfo = response["rtt_info"] as? [String: Any],
-                let numReceived = rttInfo["num_received"] as? Int,
-                let numMissing = rttInfo["num_missing"] as? Int,
-                let numError = rttInfo["num_error"] as? Int//,
+            if let rttInfo = response["rtt_udp_info"] as? [String: Any] {
 
-                /*let minNs = rttInfo["min_ns"] as? Double,
-                 let maxNs = rttInfo["max_ns"] as? Double,
-                 let medianNs = rttInfo["median_ns"] as? Double*/ {
-
-                    // TODO: single rtt values
-                    logger.debug("--!!-- RTT: \(String(describing: rttInfo["min_ns"])), \(String(describing: rttInfo["max_ns"])), \(String(describing: rttInfo["median_ns"])), \(numReceived)")
-
-                    phaseProgress = Double(numReceived + numMissing + numError) / 10.0 // TODO: rtt config packet count?
+                phaseProgress = rttInfo["progress"] as? Double
+                logger.debug("--!!-- RTT: \(String(describing: rttInfo["min_ns"])), \(String(describing: rttInfo["max_ns"])), \(String(describing: rttInfo["median_ns"]))")
             }
         case .download:
             if  let downloadInfo = response["download_info"] as? [[String: Any]],
-                let lastDownloadInfo = downloadInfo.last,
-                let durationNs = lastDownloadInfo["duration_ns"] as? Double {
+                let lastDownloadInfo = downloadInfo.last {
 
-                phaseProgress = (durationNs/* / Double(NSEC_PER_MSEC)*/) / (10 * Double(NSEC_PER_SEC))/*self.speed.measureTime.doubleValue*/
+                phaseProgress = lastDownloadInfo["progress"] as? Double
             }
         case .upload:
             if  let uploadInfo = response["upload_info"] as? [[String: Any]],
-                let lastUploadInfo = uploadInfo.last,
-                let durationNs = lastUploadInfo["duration_ns"] as? Double {
+                let lastUploadInfo = uploadInfo.last {
 
-                phaseProgress = (durationNs/* / Double(NSEC_PER_MSEC)*/) / (10 * Double(NSEC_PER_SEC))/*self.speed.measureTime.doubleValue*/
+                phaseProgress = lastUploadInfo["progress"] as? Double
             }
         }
 
@@ -357,17 +306,6 @@ extension IASProgram: SpeedDelegate {
         delegate?.iasMeasurement(self, didFinishPhase: currentPhase)
     }
 
-    func measurementDidLoad(withResponse response: [AnyHashable: Any]!, withError error: Error!) {
-        //logger.debug(response)
-        //logger.debug(error)
-        logger.debug("measurementDidLoad")
-
-        delegate?.iasMeasurement(self, didFinishPhase: .initialize)
-
-        speed.measurementStart()
-        delegate?.iasMeasurement(self, didStartPhase: .rtt)
-    }
-
     func measurementCallback(withResponse response: [AnyHashable: Any]!) {
         showKpisFromResponse(response: response)
 
@@ -383,7 +321,7 @@ extension IASProgram: SpeedDelegate {
         result = response
 
         logger.debugExec {
-            let res = try? String(data: JSONSerialization.data(withJSONObject: result, options: .prettyPrinted), encoding: .utf8)!
+            let res = try? String(data: JSONSerialization.data(withJSONObject: result as Any, options: .prettyPrinted), encoding: .utf8)!
             logger.debug(res)
         }
 
@@ -394,9 +332,5 @@ extension IASProgram: SpeedDelegate {
         logger.debug("STOP")
 
         measurementFinishedSemaphore.signal()
-    }
-
-    func measurementDidClearCache() {
-        logger.debug("CLEAR CACHE")
     }
 }

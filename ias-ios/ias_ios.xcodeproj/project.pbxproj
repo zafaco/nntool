@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1A85EC5D5728E261C0F4AEB9 /* Pods_Common.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62E7B5E10FB81BFCC31BFDEE /* Pods_Common.framework */; };
 		2083BDE360ACACFEC933C036 /* Pods_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28EE0C32DE3E7DBF0DFCCE8A /* Pods_Demo.framework */; };
-		270F0DB4225B37600079C81F /* ias.mobile.js in Resources */ = {isa = PBXBuildFile; fileRef = 270F0DB3225B37600079C81F /* ias.mobile.js */; };
 		273C63C621189B2F00235BC3 /* Common.h in Headers */ = {isa = PBXBuildFile; fileRef = 273C63C521189B2F00235BC3 /* Common.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		273C63D121189F6B00235BC3 /* Speed.h in Headers */ = {isa = PBXBuildFile; fileRef = 273C63CF21189F6B00235BC3 /* Speed.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		273C63D421189F6B00235BC3 /* Speed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 273C63CD21189F6B00235BC3 /* Speed.framework */; };
@@ -26,19 +25,16 @@
 		2782F71A21188D6300C9E246 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2782F71921188D6300C9E246 /* main.m */; };
 		2782F72C21188E2300C9E246 /* Common.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2782F72521188E2300C9E246 /* Common.framework */; };
 		2782F72D21188E2300C9E246 /* Common.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2782F72521188E2300C9E246 /* Common.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		27A5A1C021DD0ABA00EA6F0B /* TNSWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A5A1B721DD097600EA6F0B /* TNSWidgets.framework */; };
-		27A5A1C121DD0ABD00EA6F0B /* NativeScript.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A5A1B421DD096700EA6F0B /* NativeScript.framework */; };
 		27BEEACA211AEFE300EAEC77 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BEEAC9211AEFE300EAEC77 /* Common.m */; };
+		27C67D802551888900ECB5D3 /* Reachability_objc.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C67D7E2551888900ECB5D3 /* Reachability_objc.m */; };
+		27C67D812551888900ECB5D3 /* Reachability_objc.h in Headers */ = {isa = PBXBuildFile; fileRef = 27C67D7F2551888900ECB5D3 /* Reachability_objc.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		27C67D8F25518A9E00ECB5D3 /* ios_connector.h in Headers */ = {isa = PBXBuildFile; fileRef = 27C67D8D25518A9E00ECB5D3 /* ios_connector.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		27C833F4211891F4008C603B /* Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C833F3211891F4008C603B /* Tool.m */; };
-		27C833F72118925A008C603B /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C833F52118925A008C603B /* Reachability.m */; };
-		27C833F82118925A008C603B /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 27C833F62118925A008C603B /* Reachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		27C833FA21189391008C603B /* Tool.h in Headers */ = {isa = PBXBuildFile; fileRef = 27C833F921189390008C603B /* Tool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		27C83408211895B3008C603B /* Database.h in Headers */ = {isa = PBXBuildFile; fileRef = 27C83404211895B3008C603B /* Database.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		27C83409211895B3008C603B /* Http.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C83405211895B3008C603B /* Http.m */; };
 		27C8340A211895B3008C603B /* Http.h in Headers */ = {isa = PBXBuildFile; fileRef = 27C83406211895B3008C603B /* Http.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		27C8340B211895B3008C603B /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C83407211895B3008C603B /* Database.m */; };
-		27FFE2BB21DD129F00C04717 /* TNSWidgets.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 27A5A1B721DD097600EA6F0B /* TNSWidgets.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		27FFE2BC21DD12A400C04717 /* NativeScript.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 27A5A1B421DD096700EA6F0B /* NativeScript.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E02ECDC321FE2FC500B80A57 /* QoSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02ECDC221FE2FC500B80A57 /* QoSViewController.swift */; };
 		E50532B73C84099D2CAD406F /* Pods_Speed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDF1DCA5453F4B8ACD59FD62 /* Pods_Speed.framework */; };
 /* End PBXBuildFile section */
@@ -76,8 +72,6 @@
 			files = (
 				273C63D521189F6B00235BC3 /* Speed.framework in Embed Frameworks */,
 				2782F72D21188E2300C9E246 /* Common.framework in Embed Frameworks */,
-				27FFE2BB21DD129F00C04717 /* TNSWidgets.framework in Embed Frameworks */,
-				27FFE2BC21DD12A400C04717 /* NativeScript.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,7 +81,6 @@
 /* Begin PBXFileReference section */
 		055603894FFFE9B4940DAF67 /* Pods-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Demo/Pods-Demo.release.xcconfig"; sourceTree = "<group>"; };
 		1CEF80A7FB9DD2F176D87B68 /* Pods-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Demo/Pods-Demo.debug.xcconfig"; sourceTree = "<group>"; };
-		270F0DB3225B37600079C81F /* ias.mobile.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = ias.mobile.js; path = ../ias/build/uglified/mobile/ias.mobile.js; sourceTree = "<group>"; };
 		273C63C521189B2F00235BC3 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		273C63CD21189F6B00235BC3 /* Speed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Speed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		273C63CF21189F6B00235BC3 /* Speed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Speed.h; sourceTree = "<group>"; };
@@ -112,9 +105,11 @@
 		27A5A1BA21DD098700EA6F0B /* NativeScript.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NativeScript.framework; path = "../ias-mobile/frameworks/ios/dist/NativeScript.framework"; sourceTree = "<group>"; };
 		27A5A1BB21DD098700EA6F0B /* TNSWidgets.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TNSWidgets.framework; path = "../ias-mobile/frameworks/ios/dist/TNSWidgets.framework"; sourceTree = "<group>"; };
 		27BEEAC9211AEFE300EAEC77 /* Common.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
+		27C67D7E2551888900ECB5D3 /* Reachability_objc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability_objc.m; sourceTree = "<group>"; };
+		27C67D7F2551888900ECB5D3 /* Reachability_objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability_objc.h; sourceTree = "<group>"; };
+		27C67D8C25518A9E00ECB5D3 /* ios_connector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ios_connector.mm; path = "../../ias-cpp/src/ios_connector.mm"; sourceTree = "<group>"; };
+		27C67D8D25518A9E00ECB5D3 /* ios_connector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ios_connector.h; path = "../../ias-cpp/src/ios_connector.h"; sourceTree = "<group>"; };
 		27C833F3211891F4008C603B /* Tool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tool.m; sourceTree = "<group>"; };
-		27C833F52118925A008C603B /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		27C833F62118925A008C603B /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		27C833F921189390008C603B /* Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tool.h; sourceTree = "<group>"; };
 		27C83404211895B3008C603B /* Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Database.h; sourceTree = "<group>"; };
 		27C83405211895B3008C603B /* Http.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Http.m; sourceTree = "<group>"; };
@@ -139,8 +134,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27A5A1C121DD0ABD00EA6F0B /* NativeScript.framework in Frameworks */,
-				27A5A1C021DD0ABA00EA6F0B /* TNSWidgets.framework in Frameworks */,
 				273C63DD2118A39900235BC3 /* Common.framework in Frameworks */,
 				E50532B73C84099D2CAD406F /* Pods_Speed.framework in Frameworks */,
 			);
@@ -178,6 +171,8 @@
 		273C63CE21189F6B00235BC3 /* Speed */ = {
 			isa = PBXGroup;
 			children = (
+				27C67D8D25518A9E00ECB5D3 /* ios_connector.h */,
+				27C67D8C25518A9E00ECB5D3 /* ios_connector.mm */,
 				273C63CF21189F6B00235BC3 /* Speed.h */,
 				273C63DE2118A3F700235BC3 /* Speed.m */,
 				273C63D021189F6B00235BC3 /* Info.plist */,
@@ -188,7 +183,6 @@
 		2782F6FE21188D6200C9E246 = {
 			isa = PBXGroup;
 			children = (
-				270F0DB3225B37600079C81F /* ias.mobile.js */,
 				2782F72621188E2300C9E246 /* Common */,
 				273C63CE21189F6B00235BC3 /* Speed */,
 				2782F70921188D6200C9E246 /* Demo */,
@@ -226,10 +220,10 @@
 		2782F72621188E2300C9E246 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				27C67D7F2551888900ECB5D3 /* Reachability_objc.h */,
+				27C67D7E2551888900ECB5D3 /* Reachability_objc.m */,
 				273C63DA2118A09500235BC3 /* LogFormatter.h */,
 				273C63D92118A09500235BC3 /* LogFormatter.m */,
-				27C833F62118925A008C603B /* Reachability.h */,
-				27C833F52118925A008C603B /* Reachability.m */,
 				27C83404211895B3008C603B /* Database.h */,
 				27C83407211895B3008C603B /* Database.m */,
 				27C83406211895B3008C603B /* Http.h */,
@@ -324,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				273C63D121189F6B00235BC3 /* Speed.h in Headers */,
+				27C67D8F25518A9E00ECB5D3 /* ios_connector.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,8 +329,8 @@
 				27C8340A211895B3008C603B /* Http.h in Headers */,
 				27C83408211895B3008C603B /* Database.h in Headers */,
 				273C63DC2118A09500235BC3 /* LogFormatter.h in Headers */,
-				27C833F82118925A008C603B /* Reachability.h in Headers */,
 				273C63C621189B2F00235BC3 /* Common.h in Headers */,
+				27C67D812551888900ECB5D3 /* Reachability_objc.h in Headers */,
 				27C833FA21189391008C603B /* Tool.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -348,7 +343,6 @@
 			buildConfigurationList = 273C63D621189F6B00235BC3 /* Build configuration list for PBXNativeTarget "Speed" */;
 			buildPhases = (
 				1DC7CC6B4497AEF6C0554CB5 /* [CP] Check Pods Manifest.lock */,
-				27A618E521199B1B001351E0 /* TNS Create Metadata */,
 				273C63C821189F6B00235BC3 /* Sources */,
 				273C63C921189F6B00235BC3 /* Frameworks */,
 				273C63CA21189F6B00235BC3 /* Headers */,
@@ -373,9 +367,8 @@
 				2782F70421188D6200C9E246 /* Frameworks */,
 				2782F70521188D6200C9E246 /* Resources */,
 				2782F73121188E2300C9E246 /* Embed Frameworks */,
-				F9AB71B1277ABCCD07F43438 /* [CP] Embed Pods Frameworks */,
-				273C63F02118B1D500235BC3 /* TNS Copy app */,
 				3CF289DF22D4899C00EFC720 /* Thinning out Frameworks */,
+				F9AB71B1277ABCCD07F43438 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -463,7 +456,6 @@
 				2782F71721188D6300C9E246 /* LaunchScreen.storyboard in Resources */,
 				2782F71421188D6300C9E246 /* Assets.xcassets in Resources */,
 				2782F71221188D6200C9E246 /* Main.storyboard in Resources */,
-				270F0DB4225B37600079C81F /* ias.mobile.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,34 +504,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
-		};
-		273C63F02118B1D500235BC3 /* TNS Copy app */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "TNS Copy app";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"/${SRCROOT}/../ias-mobile/copy_app_ios.sh\"\n \n";
-		};
-		27A618E521199B1B001351E0 /* TNS Create Metadata */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "TNS Create Metadata";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "cd \"$PROJECT_DIR/../ias-mobile/platforms/ios/internal/metadata-generator/bin\" && ./build-step-metadata-generator.py\n";
 		};
 		3CF289DF22D4899C00EFC720 /* Thinning out Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -619,8 +583,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				27BEEACA211AEFE300EAEC77 /* Common.m in Sources */,
-				27C833F72118925A008C603B /* Reachability.m in Sources */,
 				27C83409211895B3008C603B /* Http.m in Sources */,
+				27C67D802551888900ECB5D3 /* Reachability_objc.m in Sources */,
 				27C8340B211895B3008C603B /* Database.m in Sources */,
 				27C833F4211891F4008C603B /* Tool.m in Sources */,
 				273C63DB2118A09500235BC3 /* LogFormatter.m in Sources */,
@@ -682,10 +646,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(inherited)",
-					"$(PROJECT_DIR)/../ias-mobile/frameworks/ios/dev",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FMDB\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/PocketSocket\"",
 				);
 				INFOPLIST_FILE = speed/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -696,17 +658,11 @@
 					"@loader_path/Frameworks",
 				);
 				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__DATA,
-					__TNSMetadata,
-					"\"$(CONFIGURATION_BUILD_DIR)/metadata-$(CURRENT_ARCH).bin\"",
 					"$(inherited)",
 					"-framework",
 					"\"CocoaLumberjack\"",
 					"-framework",
 					"\"FMDB\"",
-					"-framework",
-					"\"PocketSocket\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zafaco.Speed;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -733,10 +689,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(inherited)",
-					"$(PROJECT_DIR)/../ias-mobile/frameworks/ios/dev",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FMDB\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/PocketSocket\"",
 				);
 				INFOPLIST_FILE = speed/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -747,17 +701,11 @@
 					"@loader_path/Frameworks",
 				);
 				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__DATA,
-					__TNSMetadata,
-					"\"$(CONFIGURATION_BUILD_DIR)/metadata-$(CURRENT_ARCH).bin\"",
 					"$(inherited)",
 					"-framework",
 					"\"CocoaLumberjack\"",
 					"-framework",
 					"\"FMDB\"",
-					"-framework",
-					"\"PocketSocket\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zafaco.Speed;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -877,6 +825,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;

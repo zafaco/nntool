@@ -1,7 +1,7 @@
 /*!
     \file upload.h
     \author zafaco GmbH <info@zafaco.de>
-    \date Last update: 2020-05-26
+    \date Last update: 2020-11-03
 
     Copyright (C) 2016 - 2020 zafaco GmbH
 
@@ -45,7 +45,7 @@ class Upload : public CBasisThread
 
 		struct measurement_data mUpload;
 
-		int pid;
+		uint64_t pid;
 
 		unsigned long long measurementTimeStart;
 		unsigned long long measurementTimeEnd;

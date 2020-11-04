@@ -1,7 +1,7 @@
 /*!
     \file upload.cpp
     \author zafaco GmbH <info@zafaco.de>
-    \date Last update: 2020-05-26
+    \date Last update: 2020-11-03
 
     Copyright (C) 2016 - 2020 zafaco GmbH
 
@@ -82,8 +82,10 @@ int Upload::run()
 		bool ipv6validated	= false;
 		bool bReachable		= true;
 
+		CTool::getPid(pid);
+
 		//Syslog Message
-		TRC_INFO( ("Starting Upload Thread with PID: " + CTool::toString(syscall(SYS_gettid))).c_str() );
+		TRC_INFO( ("Starting Upload Thread with PID: " + CTool::toString(pid)).c_str() );
 
 		//Get Hostname and make DNS Request
 		TRC_DEBUG( ("Resolving Hostname for Measurement: "+mServerName).c_str() );
@@ -126,8 +128,6 @@ int Upload::run()
 
 		TRC_DEBUG( ("Resolved Hostname for Measurement: "+mServer).c_str() );
 			
-		pid = syscall(SYS_gettid);
-
 		measurementTimeStart 	= 0;
 		measurementTimeEnd 		= 0;
 		measurementTimeDuration = 0;
@@ -135,7 +135,9 @@ int Upload::run()
 		measurementTimeStart = CTool::get_timestamp();
 		
 		//Start syncing threads
+		pthread_mutex_lock(&mutex_syncing_threads);
 		syncing_threads[pid] = 0;
+		pthread_mutex_unlock(&mutex_syncing_threads);
 		
 		vector<string> vResponse;
 		string delimiter = ",";
@@ -238,7 +240,7 @@ int Upload::run()
 			mConnection->close();
 
 			//Syslog Message
-			TRC_DEBUG( ("Ending Download Thread with PID: " + CTool::toString(syscall(SYS_gettid))).c_str() );
+			TRC_DEBUG( ("Ending Download Thread with PID: " + CTool::toString(pid)).c_str() );
 
 			return 0;
 		}
@@ -262,6 +264,8 @@ int Upload::run()
 		#ifndef NNTOOL
 			comparator = MEASUREMENT_DURATION;
 		#endif
+
+		bool dataReceived = false;
 		
 		while( RUNNING && TIMER_ACTIVE && !TIMER_STOPPED )
 		{
@@ -274,8 +278,15 @@ int Upload::run()
 			//Receive Data from Server
 			mResponse = mConnection->receive(rbuffer, MAX_PACKET_SIZE, 0);
 			
-			//Send signal, we are ready
-			syncing_threads[pid] = 1;
+			if (!dataReceived)
+			{
+				//Send signal, we are ready
+				pthread_mutex_lock(&mutex_syncing_threads);
+				syncing_threads[pid] = 1;
+				pthread_mutex_unlock(&mutex_syncing_threads);
+
+				dataReceived = true;
+			}
 
 			if (mResponse == -1 || mResponse == 0) {
 				//Got an error
@@ -455,7 +466,7 @@ int Upload::run()
 	mConnection->close();
 	
 	//Syslog Message
-	TRC_DEBUG( ("Ending Upload Thread with PID: " + CTool::toString(syscall(SYS_gettid))).c_str() );
+	TRC_DEBUG( ("Ending Upload Thread with PID: " + CTool::toString(pid)).c_str() );
 	
 	return 0;
 }

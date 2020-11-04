@@ -1,7 +1,7 @@
 /*!
     \file ping_test.cpp
     \author zafaco GmbH <info@zafaco.de>
-    \date Last update: 2020-07-01
+    \date Last update: 2020-11-03
 
     Copyright (C) 2016 - 2020 zafaco GmbH
 
@@ -30,12 +30,16 @@
 TEST_CASE("Ping test")
 {
     ::OVERLOADED = false;
-    ::DEBUG =false;
+    ::_DEBUG_ =false;
     ::RUNNING= true;
     ::PLATFORM = "desktop";
-    ::CLIENT_OS = "linux";
 
-    //CTrace& pTrace = CTrace::getInstance();
+    #if defined(__APPLE__) && defined(TARGET_OS_MAC)
+        ::CLIENT_OS  = "macos";
+    #else
+        ::CLIENT_OS  = "linux";
+    #endif
+    
     CTrace::setLogFunction([] (std::string const & cat, std::string const  &s) { std::cout << "[" + CTool::get_timestamp_string() + "] " + cat + ": " + s + "\n"; });
     ifstream in("/etc/ias-server/config.json");
     stringstream buffer;
@@ -51,7 +55,9 @@ TEST_CASE("Ping test")
     std::unique_ptr<CConfigManager> pService;
     SECTION("Performs successfull RTT measurement against ias-server")
     {
+        pthread_mutex_lock(&mutex_syncing_threads);
         syncing_threads.clear();
+        pthread_mutex_unlock(&mutex_syncing_threads);
         conf.sProvider="testing";
         conf.sTestName = "rtt_udp";
         conf.nTestCase=2;

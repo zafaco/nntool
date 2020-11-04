@@ -1,9 +1,9 @@
 /*!
     \file Tool.h
     \author zafaco GmbH <info@zafaco.de>
-    \date Last update: 2019-11-13
+    \date Last update: 2020-11-03
 
-    Copyright (C) 2016 - 2019 zafaco GmbH
+    Copyright (C) 2016 - 2020 zafaco GmbH
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3 
@@ -18,7 +18,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#import "Reachability.h"
+#import "Reachability_objc.h"
 #import "LogFormatter.h"
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>

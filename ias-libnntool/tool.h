@@ -1,7 +1,7 @@
 /*!
     \file tool.h
     \author zafaco GmbH <info@zafaco.de>
-    \date Last update: 2020-04-06
+    \date Last update: 2020-11-03
 
     Copyright (C) 2016 - 2020 zafaco GmbH
 
@@ -152,6 +152,15 @@ class CTool
 			stringstream sstr(s);
 			sstr >> value;
 			return value;
+		}
+
+		static void getPid(uint64_t &pid)
+		{
+			#ifdef __APPLE__
+				pthread_threadid_np(NULL, &pid);
+			#else
+				pid = syscall(SYS_gettid);
+			#endif
 		}
 		//Template Code-------------------------------------------------------
 };

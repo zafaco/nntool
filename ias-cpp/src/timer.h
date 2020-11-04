@@ -1,7 +1,7 @@
 /*!
     \file timer.h
     \author zafaco GmbH <info@zafaco.de>
-    \date Last update: 2020-07-01
+    \date Last update: 2020-11-03
 
     Copyright (C) 2016 - 2020 zafaco GmbH
 
@@ -37,10 +37,11 @@ class CTimer : public CBasisThread
 
 		CCallback *mCallback;
 
+		uint64_t pid;
+
 		bool unreachableSignaled;
 		bool forbiddenSignaled;
 		bool overloadSignaled;
-
         unsigned long long mInitialCallbackDelay;
 	
 	public:
@@ -49,7 +50,7 @@ class CTimer : public CBasisThread
 		virtual ~CTimer();
 		
 		CTimer( int nInstances, CCallback *pCallback, unsigned long long nInitialCallbackDelay);
-		
+
 		int run();
 };
 

@@ -3,19 +3,30 @@ PODS:
   - Alamofire (5.0.5)
   - BartyCrouch (4.0.2)
   - BlueSocket (1.0.52)
+  - BoringSSL (10.0.6):
+    - BoringSSL/Implementation (= 10.0.6)
+    - BoringSSL/Interface (= 10.0.6)
+  - BoringSSL/Implementation (10.0.6):
+    - BoringSSL/Interface (= 10.0.6)
+  - BoringSSL/Interface (10.0.6)
   - CocoaAsyncSocket (7.6.4)
-  - CocoaLumberjack (3.6.1):
-    - CocoaLumberjack/Core (= 3.6.1)
-  - CocoaLumberjack/Core (3.6.1)
+  - CocoaLumberjack (3.7.0):
+    - CocoaLumberjack/Core (= 3.7.0)
+  - CocoaLumberjack/Core (3.7.0)
   - CodableJSON (1.2.0)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - GoogleMaps (3.8.0):
-    - GoogleMaps/Maps (= 3.8.0)
-  - GoogleMaps/Base (3.8.0)
-  - GoogleMaps/Maps (3.8.0):
+  - GoogleMaps (3.8.2):
+    - GoogleMaps/Maps (= 3.8.2)
+  - GoogleMaps/Base (3.8.2)
+  - GoogleMaps/Maps (3.8.2):
     - GoogleMaps/Base
+  - ias-cpp (1.0.0):
+    - BoringSSL (= 10.0.6)
+    - ias-libnntool
+  - ias-libnntool (1.0.0):
+    - BoringSSL (= 10.0.6)
   - MeasurementAgentKit (0.0.1):
     - CocoaAsyncSocket (~> 7.6.3)
     - nntool-shared-swift (~> 0.0.1)
@@ -29,15 +40,6 @@ PODS:
   - ObjcExceptionBridging (1.0.1):
     - ObjcExceptionBridging/ObjcExceptionBridging (= 1.0.1)
   - ObjcExceptionBridging/ObjcExceptionBridging (1.0.1)
-  - PocketSocket (1.0.1):
-    - PocketSocket/Client (= 1.0.1)
-    - PocketSocket/Core (= 1.0.1)
-    - PocketSocket/Server (= 1.0.1)
-  - PocketSocket/Client (1.0.1):
-    - PocketSocket/Core
-  - PocketSocket/Core (1.0.1)
-  - PocketSocket/Server (1.0.1):
-    - PocketSocket/Client
   - qos-client-cpp (0.0.1)
   - QoSKit (0.0.1):
     - Alamofire (~> 5.0.0)
@@ -69,9 +71,10 @@ DEPENDENCIES:
   - CocoaLumberjack (>= 3.4.2)
   - FMDB (>= 2.7.2)
   - GoogleMaps (~> 3.8.0)
+  - ias-cpp (from `../ias-cpp`)
+  - ias-libnntool (from `../ias-libnntool`)
   - MeasurementAgentKit (from `../measurement-agent-swift`)
   - nntool-shared-swift (from `../nntool-shared-swift`)
-  - PocketSocket (from `https://github.com/net-neutrality-tools/PocketSocket`)
   - qos-client-cpp (from `../qos-cpp`)
   - QoSKit (from `../qos-client-swift`)
   - R.swift (~> 5.1.0)
@@ -84,6 +87,7 @@ SPEC REPOS:
     - Alamofire
     - BartyCrouch
     - BlueSocket
+    - BoringSSL
     - CocoaAsyncSocket
     - CocoaLumberjack
     - CodableJSON
@@ -102,36 +106,35 @@ SPEC REPOS:
     - XCGLogger
 
 EXTERNAL SOURCES:
+  ias-cpp:
+    :path: "../ias-cpp"
+  ias-libnntool:
+    :path: "../ias-libnntool"
   MeasurementAgentKit:
     :path: "../measurement-agent-swift"
   nntool-shared-swift:
     :path: "../nntool-shared-swift"
-  PocketSocket:
-    :git: https://github.com/net-neutrality-tools/PocketSocket
   qos-client-cpp:
     :path: "../qos-cpp"
   QoSKit:
     :path: "../qos-client-swift"
-
-CHECKOUT OPTIONS:
-  PocketSocket:
-    :commit: 629b86dde91f738dd8f87d395d76f1d6a169afc5
-    :git: https://github.com/net-neutrality-tools/PocketSocket
 
 SPEC CHECKSUMS:
   ActionKit: c1b6427fd36a0fe2223555679bcc5dea437af5b3
   Alamofire: df2f8f826963b08b9a870791ad48e07a10090b2e
   BartyCrouch: 3f3501276901326bf4150341ad801467da972e43
   BlueSocket: 1acd943acb07b55905291d608649fcfbf8cbd57d
+  BoringSSL: e10f92a27043805c01071fe815a5cd98ae8212e7
   CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
-  CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
+  CocoaLumberjack: e8955b9d337ac307103b0a34fd141c32f27e53c5
   CodableJSON: 3e91bb0cead42e788d8fe64b8b07761c83ad7758
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  GoogleMaps: 7c8d66d70e4e8c300f43a7219d8fdaad7b325a9a
+  GoogleMaps: ae0efe10e9c40bcd9decd0c9fd53d947af7801a3
+  ias-cpp: 6ad1ea21ebc8cbf6eedf1b5e68aca1fcb43543da
+  ias-libnntool: dc02719610d14a82b13e26ade68286a4145ee014
   MeasurementAgentKit: 52a4a7b95481d0a440fe5e77f08bae547d6ed331
   nntool-shared-swift: c9a7bd0cb182da4e0008aa8b2a66cececbf4dba7
   ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
-  PocketSocket: ea973e14ebcea9e11a77e692f4da2a0e05dc8481
   qos-client-cpp: 25de2249179f5eb0f521723d1d5a5d61aa5ccfc0
   QoSKit: 3c197cc5983e8e26a976daa682fe6de7303d8d9c
   R.swift: 8cbc4fc69b740305b6a17c8a8ed968eb788962d9
@@ -145,6 +148,6 @@ SPEC CHECKSUMS:
   WKWebViewWithURLProtocol: f7f2b367c40680105794a068ed2bb2cd5922c27c
   XCGLogger: 1943831ef907df55108b0b18657953f868de973b
 
-PODFILE CHECKSUM: 8a48f9d88a8fb2f96358bdb916ea4eb3457ef101
+PODFILE CHECKSUM: 523a4f90e70369e00d2826bb84c4e2de0958dec2
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.3

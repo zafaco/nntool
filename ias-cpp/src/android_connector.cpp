@@ -2,7 +2,7 @@
     \file android_connector.cpp
     \author zafaco GmbH <info@zafaco.de>
     \author alladin-IT GmbH <info@alladin.at>
-    \date Last update: 2020-05-26
+    \date Last update: 2020-11-03
 
     Copyright (C) 2016 - 2020 zafaco GmbH
     Copyright (C) 2019 alladin-IT GmbH
@@ -611,7 +611,7 @@ void AndroidConnector::startMeasurement() {
 
         //init from ias-client
 
-        ::DEBUG 			= false;
+        ::_DEBUG_ 			= false;
         ::RUNNING 			= true;
 
         ::RTT				= speedTaskDesc.performRtt;

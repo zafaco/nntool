@@ -1,7 +1,7 @@
 /*!
     \file measurement.h
     \author zafaco GmbH <info@zafaco.de>
-    \date Last update: 2020-07-01
+    \date Last update: 2020-11-03
 
     Copyright (C) 2016 - 2020 zafaco GmbH
 
@@ -48,9 +48,8 @@ class CMeasurement
 		CConfigManager *mService;
 		CCallback *mCallback;
 		std::unique_ptr<CTimer> mTimer;
-
         unsigned long long mInitialCallbackDelay;
-		
+
 	public:
 		CMeasurement();
 		
